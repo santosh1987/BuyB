@@ -111,14 +111,14 @@
             <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                 <img src="{{url('Admin/images/users/user-1.jpg')}}" alt="user-image" class="rounded-circle">
                 <span class="pro-user-name ml-1">
-                    Marcia J. <i class="mdi mdi-chevron-down"></i> 
+                    {{Auth::user()->name}} <i class="mdi mdi-chevron-down"></i> 
                 </span>
             </a>
             <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
                 <!-- item-->
                 <div class="dropdown-item noti-title">
                     <h5 class="m-0 text-white">
-                        Welcome !
+                        Welcome !!!
                     </h5>
                 </div>
 

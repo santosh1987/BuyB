@@ -24,6 +24,14 @@ Route::group(['middleware'=>['auth']], function ()
     Route::get('dashboard', function() {
          return view('Admin.Adashboard');
     });
+
+   Route::get('/view-Category', function() {
+        return view('Admin.categories.viewCategories');
+    });
+
+    Route::get('/view-SubCategory', function() {
+        return view('Admin.categories.viewSubCategories');
+    });
 });
 
 //administrator routes

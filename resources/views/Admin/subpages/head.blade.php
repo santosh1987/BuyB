@@ -16,4 +16,13 @@
     <link href="{{ url('Admin/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{ url('Admin/css/app.min.css')}}" rel="stylesheet" type="text/css" />
 
+    <!-- DataTable css -->
+    <link href="{{ url('Admin/libs/datatables/dataTables.bootstrap4.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{ url('Admin/libs/datatables/responsive.bootstrap4.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{ url('Admin/libs/datatables/buttons.bootstrap4.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{ url('Admin/libs/datatables/select.bootstrap4.css')}}" rel="stylesheet" type="text/css" />
+
+    {{-- modal custom css --}}
+    <link href="{{ url('Admin/libs/custombox/custombox.min.css') }}" rel="stylesheet">
+
 </head>

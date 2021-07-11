@@ -8,7 +8,7 @@
             <li class="menu-title">Navigation</li>
 
             <li>
-                <a href="javascript: void(0);">
+                <a href="dashboard">
                     <i class="la la-dashboard">
                         
                     </i>
@@ -26,10 +26,10 @@
                 </a>
                 <ul class="nav-second-level" aria-expanded="false">
                     <li>
-                        <a href="apps-calendar.html">Parent Categories</a>
+                        <a href="view-Category">Parent Categories</a>
                     </li>
                     <li>
-                        <a href="apps-contacts.html">Sub Categories</a>
+                        <a href="view-SubCategory">Sub Categories</a>
                     </li>
                 </ul>
             </li>

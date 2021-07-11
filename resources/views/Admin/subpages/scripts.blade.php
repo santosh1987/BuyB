@@ -12,3 +12,16 @@
 
 <!-- App js -->
 <script src = "{{  url ('Admin/js/app.min.js')}}"></script>
+
+{{-- Datatables --}}
+
+<script src="{{ url('Admin/libs/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{ url('Admin/libs/datatables/dataTables.bootstrap4.js')}}"></script>
+<script src="{{ url('Admin/libs/datatables/dataTables.responsive.min.js')}}"></script>
+<script src="{{ url('Admin/libs/datatables/responsive.bootstrap4.min.js')}}"></script>
+<script src="{{ url('Admin/libs/datatables/dataTables.buttons.min.js')}}"></script>
+<script src="{{ url('Admin/libs/datatables/buttons.bootstrap4.min.js')}}"></script>
+ <script src="{{ url('Admin/js/pages/datatables.init.js') }}"></script>
+
+ {{-- Modal custom css --}}
+ <script src="{{ url('Admin/libs/custombox/custombox.min.js')}}"></script>
