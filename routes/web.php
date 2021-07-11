@@ -17,21 +17,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('/newlogin',function ()
-// {
-//     return view('login');
-// });
-
-// Route::post('dologin',[\App\Http\Controllers\LoginController::class,'authenticate'])->name('doLogin');
-// // super administrator routes
-
-Route::group(['middleware'=>['auth']], function ()
+Route::group(['middleware'=>['auth','role:superadministrator']], function ()
 {
     Route::get('dashboard', function() {
          return view('Admin.Adashboard');
     });
 
-   Route::get('/view-Category', function() {
+    Route::get('/view-Category', function() {
         return view('Admin.categories.viewCategories');
     });
 
@@ -41,10 +33,10 @@ Route::group(['middleware'=>['auth']], function ()
 });
 
 //administrator routes
-Route::group(['middleware'=>['auth']], function ()
+Route::group(['middleware'=>['auth','role:administrator']], function ()
 {
-    Route::get('tdashboard', function() {
-         return view('dashboard');
+    Route::get('dashboard', function() {
+         return view('Vendor.Vdashboard');
     });
 });
 
