@@ -17,7 +17,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// super administrator routes
+// Route::get('/newlogin',function ()
+// {
+//     return view('login');
+// });
+
+// Route::post('dologin',[\App\Http\Controllers\LoginController::class,'authenticate'])->name('doLogin');
+// // super administrator routes
 
 Route::group(['middleware'=>['auth']], function ()
 {
