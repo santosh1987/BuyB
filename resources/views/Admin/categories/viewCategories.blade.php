@@ -13,6 +13,12 @@
                         <h3 class="header-title">All Categories</h3>
                         <br>
                         <div class="col-lg-12">
+                            @if ($message = Session::get('message'))
+                            <div class="alert alert-success alert-block">
+                                <button type="button" class="close" data-dismiss="alert">×</button>    
+                                <strong>{{ $message }}</strong>
+                            </div>
+                            @endif
                             <div class="text-lg-right mt-3 mt-lg-0">
                                 
                                 <a href="#custom-modal" class="btn btn-primary waves-effect waves-light"
@@ -27,16 +33,20 @@
                                     <th>S No</th>
                                     <th>Category Name</th>
                                     <th>Description</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                         
                             <tbody>
+                                {{ $i = 0 }}
+                                @foreach($categories as $category)
                                 <tr>
-                                    <td> 1</td>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    
+                                    <td> {{ ++$i}} </td>
+                                    <td>{{$category->category_name}}</td>
+                                    <td>{{$category->description}}</td>
+                                    <td><i style='color:#5f82bd;font-size:20px;' class='fa fa-edit' onclick='updateModal("+value.id+")'></i>&emsp;&emsp;&emsp;<i  style='color:red;font-size:20px;' class='fa fa-trash'></i></td>
                                 </tr>
+                                @endforeach
                                 
                             </tbody>
                         </table>
@@ -53,7 +63,8 @@
             </button>
             <h4 class="custom-modal-title">New Category</h4>
             <div class="custom-modal-text text-left">
-                <form >
+                <form action="addCategory"  method="POST">
+                    @csrf
                     <div class="form-group  mb-3">
                         <label for="catName" class="col-3 col-form-label">Category Name</label>
                         <div class="col-9">
