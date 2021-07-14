@@ -38,7 +38,7 @@
                             </thead>
                         
                             <tbody>
-                                {{ $i = 0 }}
+                                <?php $i = 0  ?>
                                 @foreach($categories as $category)
                                 <tr>
                                     <td> {{ ++$i}} </td>

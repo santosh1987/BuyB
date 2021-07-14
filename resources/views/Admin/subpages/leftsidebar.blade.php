@@ -1,12 +1,8 @@
 <div class="slimscroll-menu">
-
     <!--- Sidemenu -->
     <div id="sidebar-menu">
-
         <ul class="metismenu" id="side-menu">
-
             <li class="menu-title">Navigation</li>
-
             <li>
                 <a href="dashboard">
                     <i class="la la-dashboard">

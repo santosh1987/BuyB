@@ -39,7 +39,7 @@
                     <!-- item-->
                     <a href="javascript:void(0);" class="dropdown-item notify-item active">
                         <div class="notify-icon">
-                            <img src="{{url('Admin/images/users/user-1.jpg')}}" class="img-fluid rounded-circle" alt="" /> </div>
+                            <img src="{{url('public/Admin/images/users/user-1.jpg')}}" class="img-fluid rounded-circle" alt="" /> </div>
                         <p class="notify-details">Cristina Pride</p>
                         <p class="text-muted mb-0 user-msg">
                             <small>Hi, How are you? What about our next meeting</small>
@@ -59,7 +59,7 @@
                     <!-- item-->
                     <a href="javascript:void(0);" class="dropdown-item notify-item">
                         <div class="notify-icon">
-                            <img src="{{url('Admin/images/users/user-4.jpg')}}" class="img-fluid rounded-circle" alt="" /> </div>
+                            <img src="{{url('public/Admin/images/users/user-4.jpg')}}" class="img-fluid rounded-circle" alt="" /> </div>
                         <p class="notify-details">Karen Robinson</p>
                         <p class="text-muted mb-0 user-msg">
                             <small>Wow ! this admin looks good and awesome design</small>
@@ -109,7 +109,7 @@
 
         <li class="dropdown notification-list">
             <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                <img src="{{url('Admin/images/users/user-1.jpg')}}" alt="user-image" class="rounded-circle">
+                <img src="{{url('public/Admin/images/users/user-1.jpg')}}" alt="user-image" class="rounded-circle">
                 <span class="pro-user-name ml-1">
                     {{Auth::user()->name}} <i class="mdi mdi-chevron-down"></i> 
                 </span>
@@ -169,12 +169,12 @@
     <div class="logo-box">
         <a href="index.html" class="logo text-center">
             <span class="logo-lg">
-                <img src="{{url('Admin/images/logo-light.png')}}" alt="" height="24">
+                <img src="{{url('public/Admin/images/logo-light.png')}}" alt="" height="24">
                 <!-- <span class="logo-lg-text-light">Upvex</span> -->
             </span>
             <span class="logo-sm">
                 <!-- <span class="logo-sm-text-dark">X</span> -->
-                <img src="{{url('Admin/images/logo-sm.png')}}" alt="" height="28">
+                <img src="{{url('public/Admin/images/logo-sm.png')}}" alt="" height="28">
             </span>
         </a>
     </div>

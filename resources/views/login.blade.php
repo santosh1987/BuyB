@@ -8,12 +8,12 @@
         <meta content="buybombay" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <!-- App favicon -->
-        <link rel="shortcut icon" href="{{url('Admin/images/favicon.ico')}}">
+        <link rel="shortcut icon" href="{{asset('public/Admin/images/favicon.ico')}}">
 
         <!-- App css -->
-        <link href="{{ url('Admin/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{ url('Admin/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{ url('Admin/css/app.min.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('public/Admin/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('public/Admin/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('public/Admin/css/app.min.css')}}" rel="stylesheet" type="text/css" />
 
     </head>
 
@@ -29,16 +29,14 @@
                                 
                                 <div class="text-center w-75 m-auto">
                                     <a href="index.html">
-                                        <span><img src="{{ url('Admin/images/logo-dark.png')}}" alt="" height="26"></span>
+                                        <span><img src="{{ asset('public/Admin/images/logo.png')}}" alt="" height="50"></span>
                                     </a>
                                     <p class="text-muted mb-4 mt-3">Enter your email address and password to access your account.</p>
                                 </div>
 
-                                <h5 class="auth-title">Sign In</h5>
+                                <!-- <h5 class="auth-title">Sign In</h5> -->
 
-                                <form action="{{ route('login.store') }}" method="POST">
-                                    @csrf
-
+                                <form action="{{ route('login.store') }}" method="post">
                                     <div class="form-group mb-3">
                                         <label for="emailaddress">Email address</label>
                                         <input class="form-control" type="email" id="emailaddress" name="email" required=""  required autofocus>
@@ -62,7 +60,7 @@
 
                                 </form>
 
-                                <div class="text-center">
+                                <!-- <div class="text-center">
                                     <h5 class="mt-3 text-muted">Sign in with</h5>
                                     <ul class="social-list list-inline mt-3 mb-0">
                                         <li class="list-inline-item">
@@ -78,7 +76,7 @@
                                             <a href="javascript: void(0);" class="social-list-item border-secondary text-secondary"><i class="mdi mdi-github-circle"></i></a>
                                         </li>
                                     </ul>
-                                </div>
+                                </div> -->
 
                             </div> <!-- end card-body -->
                         </div>
@@ -86,8 +84,8 @@
 
                         <div class="row mt-3">
                             <div class="col-12 text-center">
-                                <p> <a href="pages-recoverpw.html" class="text-muted ml-1">Forgot your password?</a></p>
-                                <p class="text-muted">Don't have an account? <a href="pages-register.html" class="text-muted ml-1"><b class="font-weight-semibold">Sign Up</b></a></p>
+                                <p> <a href="forgotpassword" class="text-muted ml-1">Forgot your password?</a></p>
+                                <p class="text-muted">Don't have an account? <a href="signup" class="text-muted ml-1"><b class="font-weight-semibold">Sign Up</b></a></p>
                             </div> <!-- end col -->
                         </div>
                         <!-- end row -->
@@ -102,14 +100,14 @@
 
 
         <footer class="footer footer-alt">
-            2021 &copy; BuyBombay 
+            <div style="margin-top:-50px;">2021 &copy; BuyBombay </div>
         </footer>
 
         <!-- Vendor js -->
-        <script src="{{ url('Admin/js/vendor.min.js')}}"></script>
+        <script src="{{ asset('public/Admin/js/vendor.min.js')}}"></script>
 
         <!-- App js -->
-        <script src="{{ url('Admin/js/app.min.js')}}"></script>
+        <script src="{{ asset('public/Admin/js/app.min.js')}}"></script>
         
     </body>
 </html>

@@ -7,9 +7,8 @@ use Illuminate\Http\Request;
 
 class SliderController extends Controller
 {
-    //
-
-    $img = $request->file('file');
+    public function slide() {
+        //$img = $request->file('file');
         $allowedExts = array('jpg', 'png', 'jpeg');
 
         $rules = [
@@ -35,4 +34,5 @@ class SliderController extends Controller
         $request->session()->put('slider_image', $filename);
         $request->file('file')->move('assets/front/img/sliders/', $filename);
         return response()->json(['status' => "session_put", "image" => "slider_image", 'filename' => $filename]);
+    }
 }
