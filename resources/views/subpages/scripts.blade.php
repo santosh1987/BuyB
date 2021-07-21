@@ -2,6 +2,7 @@
 <script src = "{{  url ('public/Admin/js/vendor.min.js')}}"></script>
 
 <!-- Third Party js-->
+<script src = "{{  url ('public/Admin/libs/jquery-knob/jquery.knob.min.js')}}"></script>
 <script src = "{{  url ('public/Admin/libs/peity/jquery.peity.min.js')}}"></script>
 <script src = "{{  url ('public/Admin/libs/apexcharts/apexcharts.min.js')}}"></script>
 <script src = "{{  url ('public/Admin/libs/jquery-vectormap/jquery-jvectormap-1.2.2.min.js')}}"></script>
@@ -25,3 +26,10 @@
 
  {{-- Modal custom css --}}
  <script src="{{ url('public/Admin/libs/custombox/custombox.min.js')}}"></script>
+
+ <!-- Sweet Alerts js -->
+ <script src="{{ url('public/Admin/libs/sweetalert2/sweetalert2.min.js')}}"></script>
+
+<!-- Sweet alert init js-->
+<script src="{{ url('public/Admin/js/pages/sweet-alerts.init.js')}}"></script>
+

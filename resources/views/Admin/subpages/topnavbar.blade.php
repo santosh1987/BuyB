@@ -145,13 +145,12 @@
                 <!-- item-->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                <a href="route('logout')"
-                onclick="event.preventDefault();
-                            this.closest('form').submit();" class="dropdown-item notify-item">
-                    <i class="fe-log-out"></i>
-                    <span>Logout</span>
-                </a>
-            </form>
+                    <a href="route('logout')" onclick="event.preventDefault();
+                                this.closest('form').submit();" class="dropdown-item notify-item">
+                        <i class="fe-log-out"></i>
+                        <span>Logout</span>
+                    </a>
+                </form>
 
             </div>
         </li>

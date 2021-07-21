@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     
-     @include('layouts.head')
+     @include('Admin.subpages.head')
     <!-- Toastr -->
      <!-- Tost-->
       <!-- Jquery Toast css -->
@@ -15,7 +15,7 @@
 
         <!-- Begin page -->
         <div id="wrapper">
-                @include('layouts.topnavbar')
+                @include('Admin.subpages.topnavbar')
          
             <div class="left-side-menu">
                 @include('layouts.sidemenu')
@@ -25,7 +25,7 @@
                  <!-- content -->
                  @yield('content')
 
-               @include('layouts.footer')
+               @include('Admin.subpages.footer')
 
             </div>
 

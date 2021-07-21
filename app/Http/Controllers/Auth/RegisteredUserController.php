@@ -46,6 +46,7 @@ class RegisteredUserController extends Controller
         ]);
 
         $user->attachRole('administrator');
+        // $user->attachPermission('dashboard-read');
         event(new Registered($user));
 
         Auth::login($user);

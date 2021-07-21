@@ -60,11 +60,13 @@
                         <label for="catName">Category Name</label>
                         <div class="col-9">
                         <select class="form-control" id="catName" name="catName">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
+                            <?php 
+                                $cats = \App\Models\Category::get();
+                                ?>
+                                @foreach($cats as $category) 
+                                <option value="{{$category['id']}}">{{$category['name']}}</option>
+                                @endforeach
+                            
                         </select>
                     </div>
                     </div>

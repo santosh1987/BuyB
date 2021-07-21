@@ -8,7 +8,7 @@
         <meta content="buybombay" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <!-- App favicon -->
-        <link rel="shortcut icon" href="{{asset('public/Admin/images/favicon.ico')}}">
+        <link rel="shortcut icon" href="{{asset('public/Admin/images/logo-sm.png')}}">
 
         <!-- App css -->
         <link href="{{ asset('public/Admin/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />

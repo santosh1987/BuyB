@@ -6,7 +6,7 @@
     <meta content="Coderthemes" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{{ url('public/Admin/images/favicon.ico')}}">
+    <link rel="shortcut icon" href="{{ url('public/Admin/images/logo-sm.png')}}">
 
     <!-- plugin css -->
     <link href="{{ url('public/Admin/libs/jquery-vectormap/jquery-jvectormap-1.2.2.css') }}" rel="stylesheet" type="text/css" />
@@ -24,5 +24,13 @@
 
     {{-- modal custom css --}}
     <link href="{{ url('public/Admin/libs/custombox/custombox.min.css') }}" rel="stylesheet">
-
+    <!-- <style>
+        #sidebar-menu>ul>li>a.active {
+        color: #f6f6f7;
+    }
+    </style> -->
+    <link href="{{ url('public/Admin/libs/sweetalert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css" />
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
 </head>

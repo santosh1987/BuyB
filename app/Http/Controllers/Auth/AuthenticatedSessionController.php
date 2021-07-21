@@ -31,10 +31,17 @@ class AuthenticatedSessionController extends Controller
         // echo "hi";
         $request->authenticate();
         // print_r($request->authenticate());
-        // die("hi");
-
+        // die($users = \App\Models\User::whereRoleIs(['superadministrator'])->get());
+        $susers = \App\Models\User::where('id',Auth::user()->id)->whereRoleIs(['superadministrator'])->get();
+        $vusers = \App\Models\User::where('id',Auth::user()->id)->whereRoleIs(['administrator','vendor'])->get();
         $request->session()->regenerate();
-
+        // die($susers->isEmpty());
+        // if(!$susers->isEmpty() && $vusers->isEmpty()) {
+        //     return redirect()->intended(RouteServiceProvider::SHOME);
+        // }
+        // elseif ($susers->isEmpty() && !$vusers->isEmpty()) {
+        //     return redirect()->intended(RouteServiceProvider::VHOME);
+        // }
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 

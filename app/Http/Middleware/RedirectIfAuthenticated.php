@@ -23,7 +23,19 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                // $susers = \App\Models\User::where('id',Auth::user()->id)->whereRoleIs(['superadministrator'])->get();
+                // $vusers = \App\Models\User::where('id',Auth::user()->id)->whereRoleIs(['administrator','vendor'])->get();
+                // $request->session()->regenerate();
+               
+                // // die(!$susers->isEmpty());
+                // //seperating route based on role which is logged in
+                // if(!$susers->isEmpty() && $vusers->isEmpty()) {
+                //     return redirect()->intended(RouteServiceProvider::SHOME);
+                // }
+                // elseif ($susers->isEmpty() && !$vusers->isEmpty()) {
+                //     return redirect()->intended(RouteServiceProvider::VHOME);
+                // }
+                return redirect()->intended(RouteServiceProvider::HOME);
             }
         }
 

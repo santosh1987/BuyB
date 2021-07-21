@@ -25,3 +25,8 @@
 
  {{-- Modal custom css --}}
  <script src="{{ url('public/Admin/libs/custombox/custombox.min.js')}}"></script>
+
+ <script src="{{ url('public/Admin/js/jquery.min.js')}}">
+  </script>
+  <script scr="{{ url('public/Admin/js/toastr.min.js')}}">
+  </script>

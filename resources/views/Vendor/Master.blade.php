@@ -9,7 +9,7 @@
                 @include('Vendor.subpages.topnavbar')
          
             <div class="left-side-menu">
-                @include('Vendor.subpages.leftsidebar')
+                @include('layouts.sidemenu')
             </div> 
 
             <div class="content-page">

@@ -15,15 +15,18 @@ return [
         'superadministrator' => [
             'users' => 'c,r,u,d',
             'payments' => 'c,r,u,d',
-            'profile' => 'r,u'
+            'profile' => 'r,u',
+            'dashboard' => 'c,r,u,d',
         ],
         'administrator' => [
             'users' => 'c,r,u,d',
-            'profile' => 'r,u'
+            'profile' => 'r,u',
+            'dashboard' => 'c,r,u,d',
         ],
         'vendor' => [
             'payments' => 'c,r,u,d',
             'profile' => 'r,u',
+            'dashboard' => 'c,r,u,d',
         ],
         'user' => [
             'profile' => 'r,u',
