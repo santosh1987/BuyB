@@ -1,5 +1,26 @@
 @extends('Admin.Master')
-
+<?php 
+if($products != null ) {
+    $product = $products[0];
+    $catId = $product['catId'];
+    $subCatId = $product['subCatId'];
+    $productName = $product['productName'];
+    $description = $product['description'];
+    $imagePath = $product['imagePath']; 
+    $id = $product->id;
+    // echo $subcategories;
+}
+else {
+    $product = null;
+    $catId = null;
+    $subCatId = null;
+    $productName = null;
+    $description = null;
+    $imagePath =null; 
+    $id = null;
+    $subcategories = array();
+}
+?>
  @section('content')
  <div class="content">
 
@@ -8,7 +29,7 @@
         <div class="col-lg-9 mt-4 offset-1 " >
             <div class="card">
                 <div class="card-title bg-purple">
-                    <h4 style="color:white;padding-left:20px;">Add Product</h4>
+                    <h4 style="color:white;padding-left:20px;" id="titleId">Add Product</h4>
                 </div>
                 <div class="card-body">
 
@@ -26,7 +47,12 @@
 
                     <div class="form-group mb-3">
                     <label for="example-input-large">Sub Categories<span style="color:red;">*</span></label>
-                        <select class="form-control" name="subCategoryName" id="subCategoryName">                           
+                        <select class="form-control" name="subCategoryName" id="subCategoryName">
+                            <option value="">Select</option>
+                            @foreach($subcategories as $subCategory)
+                            <option value="{{$subCategory->id}}">{{$subCategory->subCategoryName}}</option>
+                            @endforeach                       
+                            
                         </select>
                         <input type="hidden" name="subCatChange" id="subCatChange" class="form-control" value="no">  
                         <input type="hidden" name="upinsert" id="upinsert" class="form-control" value="insert">  
@@ -44,6 +70,7 @@
                         <label for="example-input-large">Product Image<span style="color:red;">*</span></label></label>
                         <input type="file" id="file" accept="image/*" multiple style="height:10%">
                         <input type="hidden" class="form-control-file" name="imageChange" id="imageChange" value="no">
+                        <img id="imagePath" class="avatar-sm rounded bg-light" style="display:none;" alt="">
                     </div>
                     
 
@@ -54,6 +81,7 @@
                         <div class="card mt-1 mb-0 shadow-none border">
                             <div class="p-2">
                                 <div class="row align-items-center">
+                                
                                     <div class="col-auto">
                                         <img data-dz-thumbnail class="avatar-sm rounded bg-light" alt="">
                                     </div>
@@ -85,7 +113,7 @@
     function loadSubMasterCategory(id) {
         // var catId = $("#categoryName").val();
         // alert(id);
-        $.ajax('getSubMasterCategoryByCatId', {
+        $.ajax("{{url('getSubMasterCategoryByCatId')}}", {
             type: 'post',  // http method
             data:{"id":id},
             success: function (data, status, xhr) {
@@ -141,10 +169,10 @@
         // alert(flag);
         if(upinsert === "insert" && flag) {
             // alert("hi")
-            targetUrl = 'saveProduct';
+            targetUrl = "{{url('saveProduct')}}";
             saveData(targetUrl, formData, id1, upinsert);
         } else if(upinsert === "update"  && flag) {
-            targetUrl = 'updateProduct';
+            targetUrl = "{{url('updateProductData')}}";
             id1 = id;
             formData.append("catChange", $("#catChange").val());
             formData.append("subCatChange", $("#subCatChange").val());
@@ -162,7 +190,8 @@
     })
     $("#file").change(function(){
         // alert('hi');
-        $("#imageChange").val("yes");           
+        $("#imageChange").val("yes");   
+        $("#imagePath").hide();        
     });
     $("#categoryName").change(
         function() {
@@ -243,7 +272,7 @@
                         else if(upinsert === "update")
                             toastr.info('Product Updated '); 
                         setTimeout(function () {
-                            location.href = 'viewProduct';
+                            location.href = "{{url('viewProduct')}}";
                         }, 2000);
                   }
 
@@ -256,6 +285,24 @@
             }
         });        
     }
-
+    $( document ).ready(function() {
+        
+        // products = JSON.parse(products);
+        // products = products[0];
+        var product = "{{$product}}";
+        // alert(product);
+        if(product != "" && product != null) {
+            $("#titleId").html("Update Product");
+            $("#categoryName").val("{{$catId}}");
+            $("#subCategoryName").val("{{$subCatId}}");
+            $("#productName").val("{{$productName}}");
+            $("#desc").val("{{$description}}");
+            $("#imagePath").attr("src", "../storage/app/{{$imagePath}}");
+            $("#imagePath").show();
+            $("#buttonChange").html('Update Product');
+            $("#buttonChange").attr('onclick', 'saveProduct({{$id}})');
+            $("#upinsert").val("update");
+        }
+    });
 </script>  
  @endsection

@@ -58,9 +58,10 @@ Route::group(['middleware'=>['auth','role:superadministrator']], function ()
     Route::get('addProduct', 'App\Http\Controllers\Admin\ProductController@addProduct');
     Route::post('saveProduct', 'App\Http\Controllers\Admin\ProductController@saveProduct');
     Route::post('getProductById', 'App\Http\Controllers\Admin\ProductController@getProductById');
-    Route::post('updateProduct', 'App\Http\Controllers\Admin\ProductController@updateProduct');
+    Route::get('updateProduct/{id}', 'App\Http\Controllers\Admin\ProductController@updateProduct');
+    Route::post('updateProductData', 'App\Http\Controllers\Admin\ProductController@updateProductData');
     Route::post('deleteProduct', 'App\Http\Controllers\Admin\ProductController@deleteProduct');
-    Route::post('changeProductStatus', 'App\Http\Controllers\Admin\ProductController@changeProductStatus');
+    Route::post('changeStatusProd', 'App\Http\Controllers\Admin\ProductController@changeStatusProd');
 
     //vendors
     // Route::get('addVendor', [App\Http\Controllers\Admin\VendorController::class,'insert'])->name('addVendor');
@@ -103,9 +104,19 @@ Route::group(['middleware'=>['auth','role:superadministrator']], function ()
     Route::get('/viewRole', 'App\Http\Controllers\Admin\RoleController@viewRole');
     Route::post('/saveRole', 'App\Http\Controllers\Admin\RoleController@saveRole');
     Route::post('/updateRole', 'App\Http\Controllers\Admin\RoleController@updateRole');
-    Route::post('/getRole', 'App\Http\Controllers\Admin\RoleController@getRole');
-    
+    Route::post('/getRole', 'App\Http\Controllers\Admin\RoleController@getRole');    
     Route::post('/deleteRole', 'App\Http\Controllers\Admin\RoleController@deleteRole');
+
+
+    //sliders
+    Route::get('/viewSlider', 'App\Http\Controllers\Admin\SliderController@display');
+    Route::post('/saveSlider', 'App\Http\Controllers\Admin\SliderController@insert');
+    Route::post('/getSliderById', 'App\Http\Controllers\Admin\SliderController@getSliderById');
+    Route::post('/updateSlider', 'App\Http\Controllers\Admin\SliderController@updateSlider');
+    Route::post('/deleteSlider', 'App\Http\Controllers\Admin\SliderController@deleteSlider');
+    Route::post('/changeStatusSlide', 'App\Http\Controllers\Admin\SliderController@changeStatusSlide');
+    
+    
 });
 
 //administrator routes

@@ -9,6 +9,7 @@ use App\Http\Controllers\DBFunctions\DBFunctionsController;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\VendorDetails;
+use App\Models\Represents;
 use App\Models\VendorGstDetails;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\View;
@@ -138,9 +139,11 @@ class VendorController extends Controller
     }
     public function checkMobile(Request $request) {
         $mobile = $request['mobile'];
-        $users = VendorDetails::where('phoneNo', $mobile)->get();
+        $represents = Represents::where('phoneNo', $mobile)->get();
+        $representsTrashed = Represents::where('phoneNo', $mobile)->get();
+        $users = VendorDetails::withTrashed()->where('phoneNo', $mobile)->get();
         $usersTrashed = VendorDetails::withTrashed()->where('phoneNo', $mobile)->get();
-        if(count($users) > 0 || count($usersTrashed) > 0) {
+        if(count($users) > 0 || count($usersTrashed) > 0 || count($represents) > 0 || count($representsTrashed) > 0) {
             return "yes";
         }
         return "no";

@@ -11,6 +11,8 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.40",
         "laravel/tinker": "^2.5",
+        "php-http/curl-client": "^2.2",
+        "razorpay/ifsc": "^1.6",
         "santigarcor/laratrust": "^6.3",
         "twilio/sdk": "^6.27"
     },

@@ -19,18 +19,14 @@
         <div class="col-lg-10 offset-1 mt-4 " >
             <div class="card">
                 <div class="card-header bg-purple py-3 text-white">
-                    <h5 class="card-title mb-0 text-white">Add Vendor</h5>
+                    <h5 class="card-title mb-0 text-white">Add Representative</h5>
                 </div>
                 <div class="card-body">
                     <div class="input-group mb-3 col-md-9">
                         <input type="hidden" id="isVerifiedMobile" value="no" />
-                        <input type="hidden" id="isVerifiedGst" value="no" />
-                        <input type="text" class="form-control" placeholder="GST No" id="gstNo" name="gatNo" aria-label="GST NO">
-                        <div class="input-group-append">
-                            <button class="btn btn-dark waves-effect waves-light" type="button" id="gstButton" onclick="verifyGst()">Verify GSTIN</button>
-                        </div>
+                        
                     </div>
-                    <div style="display:none;" id="mobileDiv">
+                    <div style="display:block;" id="mobileDiv">
                         <div class="input-group mb-3 col-md-9">
                             <input type="text" class="form-control" placeholder="Mobile No" id="mobile" name="mobile" aria-label="GST NO">
                             <div class="input-group-append">
@@ -56,13 +52,26 @@
                     </div>
                     <div id="remDiv" style="display:none;">
                         <div class="form-group  mb-3">
-                            <label for="email" class="col-5 col-form-label">Vendor E-mail</label>
+                            <label for="email" class="col-5 col-form-label">Representative E-mail</label>
                             <div class="col-9">
-                                <input type="email" class="form-control" placeholder="Vendor E-Mail" id="email" name="email" aria-label="Vendor E-mail">
+                                <input type="email" class="form-control" placeholder="Representatvie E-Mail" id="email" name="email" aria-label="Representative E-mail">
                             </div>
-                        </div>   
+                        </div>
+                        <div class="form-group  mb-3">
+                            <label for="email" class="col-5 col-form-label">Representative Dob</label>
+                            <div class="col-9">
+                                <input type="date" class="form-control" placeholder="Representatvie DOB" id="dob" name="dob" aria-label="DOB">
+                            </div>
+                        </div>
+                        <div class="form-group  mb-3">
+                            <label for="email" class="col-5 col-form-label">Representative Address</label>
+                            <div class="col-9">
+                                <textarea rows="3" class="form-control" placeholder="Address" id="address" name="address" aria-label="Address"></textarea>
+                            </div>
+                        </div>
+                           
                         <div class="input-group mb-3 col-md-9">
-                            <button class="btn btn-primary" id="saveData" onclick="saveData()"> Save</button>
+                            <button class="btn btn-primary" id="saveData" onclick="saveData()"> Add Representative</button>
                         </div>                     
                     </div>
                    
@@ -76,7 +85,7 @@ var jsonData = '';
 var trails = 1;
 function checkEmail(email) {
     if(email!=null && email!= "") {
-        $.ajax('checkEmail', {
+        $.ajax("{{url('checkEmail')}}", {
             type: 'POST',  // http method
             data: { "email": email },  // data to submit
             success: function (data, status, xhr) {
@@ -101,14 +110,12 @@ function checkEmail(email) {
 function saveData() {
     var email = $("#email").val();
     var mobileVerified = $("#isVerifiedMobile").val();
-    var gstVerified = $("#isVerifiedGst").val();
     var flag = checkEmail(email);
     var formData = new FormData(); 
     formData.append("phoneNum", $("#mobile").val());
-    formData.append("jsonData", jsonData);
     formData.append("email", email);
     if(!flag) {
-        $.ajax('addVendor', {
+        $.ajax("{{url('addRepresntative')}}", {
             type: 'POST',  // http method
             dataType: 'text',  // what to expect back from the PHP script, if anything
             cache: false,
@@ -119,13 +126,13 @@ function saveData() {
             success: function (data, status, xhr) {
                 //   alert(data+" "+status);
                     if(data === "success") {
-                        toastr.success('Vendor Saved ');                  
+                        toastr.success('Represntative Saved ');                  
                         
                     }
                 },
             error: function (jqXhr, textStatus, errorMessage) {
                 // alert(data+" "+status);
-                toastr.error('Vendor Not Saved '+errorMessage);
+                toastr.error('Represntative Not Saved '+errorMessage);
 
             }
         }).done(function(data, status, xhr) { //use this
@@ -150,76 +157,11 @@ function checkData(gst) {
     }
     return true;
 }
-function checkGst(gst) {
-    if(!checkData(gst)) {
-        // toastr.error("GSTIN Entered is invalid");
-        return false;
-    }
-    $.ajax('checkGst', {
-            type: 'POST',  // http method
-            data: { "gst": gst },  // data to submit
-            success: function (data, status, xhr) {
-               
-                if(data === "yes") {
-                    // alert("GST Existed")
-                    toastr.error("Please Use the different GSTIN!!")
-                    // $('#your_link_id').click()
-                    $("#gstNo").focus();
-                    return true;
-                }
-                
-                // alert(data.data.lgnm);
-            },   
-            error: function (jqXhr, textStatus, errorMessage) {
-                // alert(data+" "+status);
-            }
-        });
-}
-function verifyGst() {
-    var gst = $("#gstNo").val();
-    var flag = checkData(gst);
-    var flagOne = checkGst(gst);
-    if(flag && !flagOne) {
-        $.ajax('getGstDetails', {
-            type: 'POST',  // http method
-            data: { "id": gst },  // data to submit
-            success: function (data, status, xhr) {
-                // data = JSON.parse(data);
-                jsonData = data;
-                data = JSON.parse(data);
-                // alert(data.flag);
-                if(data.flag === false) {
-                    // alert("Invalid")
-                    toastr.error("Invalid GST Details Found Please Enter Valid One!!!")
-                    // $('#your_link_id').click()
-                }
-                else if(data.flag == true) {
-                    toastr.success("Valid GST Details Found Please Enter Remaining Data!!!")
-                    $("#isVerifiedGst").val("yes");
-                    $("#mobileDiv").show();
-                    $("#gstNo").attr("dsiabled","true");
-                    $("#gstButton").attr("dsiabled","true");
-                }
-                // alert(data.data.lgnm);
-            },   
-            error: function (jqXhr, textStatus, errorMessage) {
-                // alert(data+" "+status);
-            }
-        });
-    }
-    else {
-        // toastr.error("Invalid GST Details Entered Please Enter Valid One!!!")
-    }
-}
 function checkMobile(mobile) {
-    $.ajax('checkMobile', {
+    $.ajax("{{url('checkMobile')}}", {
         type: 'POST',  // http method
         data: { "mobile": mobile },  // data to submit
         success: function (data, status, xhr) {
-            // alert(data);
-            
-            
-            // alert(data.data.lgnm);
         },   
         error: function (jqXhr, textStatus, errorMessage) {
             // alert(data+" "+status);
@@ -241,7 +183,7 @@ function checkMobile(mobile) {
     
 }
 function sendOtp(mobile) {
-    $.ajax('sendOtp', {
+    $.ajax("{{url('sendOtp')}}", {
         type: 'POST',  // http method
         data: { "mobile": mobile },  // data to submit
         success: function (data, status, xhr) {

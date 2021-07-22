@@ -27,12 +27,17 @@ $vusers = \App\Models\User::where('id',Auth::user()->id)->whereRoleIs(['administ
         <ul class="metismenu" id="side-menu">
             <li class="menu-title">Navigation</li>
             <li >
-                <a href="dashboard" id="dashboard">
+                <a href="{{url('dashboard')}}" id="dashboard">
                     <i class="la la-dashboard"></i>
                     <span> Dashboard</span>                     
                 </a>               
             </li>
-
+            <li >
+                <a href="{{url('viewSlider')}}" id="slider">
+                    <i class="la la-dashboard"></i>
+                    <span> Manage Sliders</span>                     
+                </a>               
+            </li>
             <li>
                 <a href="javascript: void(0);">
                     <i class="la la-cube"></i>
@@ -41,10 +46,10 @@ $vusers = \App\Models\User::where('id',Auth::user()->id)->whereRoleIs(['administ
                 </a>
                 <ul class="nav-second-level" aria-expanded="false">
                     <li>
-                        <a href="viewCategory">Master Categories</a>
+                        <a href="{{url('viewCategory')}}">Master Categories</a>
                     </li>
                     <li>
-                        <a href="viewSubCategory">Sub Categories</a>
+                        <a href="{{url('viewSubCategory')}}">Sub Categories</a>
                     </li>
                 </ul>
             </li>
@@ -57,10 +62,10 @@ $vusers = \App\Models\User::where('id',Auth::user()->id)->whereRoleIs(['administ
                 </a>
                 <ul class="nav-second-level" aria-expanded="false">
                     <li>
-                        <a href="addProduct">Add Products</a>
+                        <a href="{{url('addProduct')}}">Add Products</a>
                     </li>
                     <li>
-                        <a href="viewProduct">View Products</a>
+                        <a href="{{url('viewProduct')}}">View Products</a>
                     </li>
                 </ul>
             </li>
@@ -73,10 +78,10 @@ $vusers = \App\Models\User::where('id',Auth::user()->id)->whereRoleIs(['administ
                 </a>
                 <ul class="nav-second-level" aria-expanded="false">
                     <li>
-                        <a href="addVendor">Add Vendors</a>
+                        <a href="{{url('addVendor')}}">Add Vendors</a>
                     </li>
                     <li>
-                        <a href="viewVendor">View Vendors</a>
+                        <a href="{{url('viewVendor')}}">View Vendors</a>
                     </li>
                 </ul>
             </li>
@@ -89,10 +94,10 @@ $vusers = \App\Models\User::where('id',Auth::user()->id)->whereRoleIs(['administ
                 </a>
                 <ul class="nav-second-level" aria-expanded="false">
                     <li>
-                        <a href="addAdmin">Add Admin</a>
+                        <a href="{{url('addAdmin')}}">Add Admin</a>
                     </li>
                     <li>
-                        <a href="viewAdmin">View Administrators</a>
+                        <a href="{{url('viewAdmin')}}">View Administrators</a>
                     </li>
                 </ul>
             </li>
@@ -107,10 +112,10 @@ $vusers = \App\Models\User::where('id',Auth::user()->id)->whereRoleIs(['administ
                         <a href="addPermission">Add Permission</a>
                     </li> -->
                     <li>
-                        <a href="viewPermission">View Permission</a>
+                        <a href="{{url('viewPermission')}}">View Permission</a>
                     </li>
                     <li>
-                        <a href="assignPermission">Assign Permission</a>
+                        <a href="{{url('assignPermission')}}">Assign Permission</a>
                     </li>
                 </ul>
             </li>
@@ -125,7 +130,7 @@ $vusers = \App\Models\User::where('id',Auth::user()->id)->whereRoleIs(['administ
                         <a href="addPermission">Add Permission</a>
                     </li> -->
                     <li>
-                        <a href="viewRole">View Roles</a>
+                        <a href="{{url('viewRole')}}">View Roles</a>
                     </li>
                     
                 </ul>

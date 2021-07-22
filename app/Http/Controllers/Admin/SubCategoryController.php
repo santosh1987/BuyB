@@ -116,6 +116,7 @@ class SubCategoryController extends Controller
 
     public function getSubMasterCategoryByCatId(Request $request) {
         $subcategories = SubCategories::leftjoin('categories', 'categories.id', '=', 'subcategories.catId')->select('categories.categoryName', 'subcategories.id', 'subcategories.status','subcategories.subCategoryName', 'subcategories.description', 'subcategories.catId')->where('subcategories.catId', $request['id'])->get();
+        // die($subcategories);
         return $subcategories->toJson();
     }
 }

@@ -68,7 +68,7 @@
                                     <td>{{$product->productName}}</td>
                                     <td>{{$product->description}}</td>
                                     <td><img style="max-width: 40%; height: auto;" src="storage/app/{{$product->imagePath}}"></td>
-                                    <td><i style='color:#5f82bd;font-size:20px;' class='fa fa-edit' onclick="updateModal({{$product->id}})"></i>&emsp;&emsp;&emsp;<i  style='color:red;font-size:20px;' class='fa fa-trash' id="sa-warning" onclick='deleteCategory({{$product->id}})'></i>&emsp;&emsp;&emsp;<?php if($product->status == 'ACTIVE') { ?> <i  style='color:blue;font-size:20px;' class='fas fa-eye' onclick='changeStatus({{$product->id}})'></i><?php } else if($product->status == 'IN-ACTIVE') {?>&emsp;&emsp;&emsp;<i  style='color:blue;font-size:20px;' class='fas fa-eye-slash' onclick='changeStatus({{$product->id}})'></i><?php } ?></td>
+                                    <td><i style='color:#5f82bd;font-size:20px;' class='fa fa-edit' onclick="update({{$product->id}})"></i>&emsp;&emsp;&emsp;<i  style='color:red;font-size:20px;' class='fa fa-trash' id="sa-warning" onclick='deleteProduct({{$product->id}})'></i>&emsp;&emsp;&emsp;<?php if($product->status == "ACTIVE") { ?> <i  style='color:blue;font-size:20px;' class='fas fa-eye' onclick='changeStatus({{$product->id}})'></i><?php } else if($product->status == 'IN-ACTIVE') {?>&emsp;&emsp;&emsp;<i  style='color:blue;font-size:20px;' class='fas fa-eye-slash' onclick='changeStatus({{$product->id}})'></i><?php } ?></td>
                                 </tr>
                                 @endforeach
                                 
@@ -130,47 +130,26 @@
      }
 
 
-     function saveMasterCategory(id) {
-        var catName = $("#catName").val();
-        var catDesc = $("#catDesc").val();
-        $.ajax('updateCategory', {
-            type: 'POST',  // http method
-            data: { "id": id, "catName":catName, "catDesc":catDesc },  // data to submit
-            success: function (data, status, xhr) {
-                if(data == 'success') {
-                    toastr.success("Category Updated");
-                }    
-                setTimeout(function () {
-                    location.reload(true);
-                }, 2000);
-            },
-            error: function (jqXhr, textStatus, errorMessage) {
-                // alert(data+" "+status);
-            }
-        });
-     }
-     /* 
-        Load Modal Data 
-        with data from server
-    */
-    function loadModal(data) {
-        $("#catName").val(data[0].categoryName);
-        $("#catDesc").val(data[0].description);
-        $("#upsert").val("1");
-        // alert(data[0].id);
-        $("#buttonChange").attr("onclick", "saveMasterCategory("+data[0].id+")");
-        $("#buttonChange").html("Update");
-        var modal = new Custombox.modal({
-            content: {
-                effect: 'fadein',
-                target: '#custom-modal'
-            }
-        });
-
-        // Open
-        modal.open();
-    }
-
+    //  function saveMasterCategory(id) {
+    //     var catName = $("#catName").val();
+    //     var catDesc = $("#catDesc").val();
+    //     $.ajax("{{url('updateCategory')}}, {
+    //         type: 'POST',  // http method
+    //         data: { "id": id, "catName":catName, "catDesc":catDesc },  // data to submit
+    //         success: function (data, status, xhr) {
+    //             if(data == 'success') {
+    //                 toastr.success("Category Updated");
+    //             }    
+    //             setTimeout(function () {
+    //                 location.reload(true);
+    //             }, 2000);
+    //         },
+    //         error: function (jqXhr, textStatus, errorMessage) {
+    //             // alert(data+" "+status);
+    //         }
+    //     });
+    //  }
+    
     /* 
         * Writing this for Refreshing the modal when clicked on add button 
     */
@@ -190,13 +169,13 @@
         // Open
         modal.open();
     }
-    function deleteCategory(id) {
-        $.ajax('deleteCategory', {
+    function deleteProduct(id) {
+        $.ajax("{{url('deleteProduct')}}", {
             type: 'POST',  // http method
             data: { "id": id},  // data to submit
             success: function (data, status, xhr) {
                 if(data == 'success') {
-                    toastr.error("Category Deleted");
+                    toastr.error("Product Deleted");
                 }    
                 setTimeout(function () {
                     location.reload(true);
@@ -208,12 +187,12 @@
         });
     }
     function changeStatus(id) {
-        $.ajax('changeStatusCat', {
+        $.ajax("{{url('changeStatusProd')}}", {
             type: 'POST',  // http method
             data: { "id": id},  // data to submit
             success: function (data, status, xhr) {
                 if(data == 'success') {
-                    toastr.info("Category Status Changed");
+                    toastr.info("Product Status Changed");
                 }    
                 setTimeout(function () {
                     location.reload(true);
@@ -223,6 +202,9 @@
                 // alert(data+" "+status);
             }
         });
+    }
+    function update(id) {
+        location.href = "{{url('updateProduct')}}/"+id;
     }
  </script>
   
