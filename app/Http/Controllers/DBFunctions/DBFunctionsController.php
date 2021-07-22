@@ -174,20 +174,20 @@ class DBFunctionsController extends Controller
 		$fields ["updatedBy"] = Auth::user()->id;
 		$ret_val = $table::where ( 'id', $data ['id'] )->update ( $fields );
 		
-		$fields = array ();
-		$fields ['transactionType'] = "UPDATE";
-		$fields ['tableName'] = $table;
-		$fields ['recId'] = $data ['id'];
-		$fields ['oldValues'] = $oldValues;
-		$fields ['newValues'] = $newValues;
-		$table = "\App\models\DBTransactions";
-		$entity = new $table ();
-		foreach ( $fields as $key => $value ) {
-			$entity [$key] = $value;
-		}
-		$entity ["createdBy"] = Auth::user()->id;
-		$fields ['insertedBy'] = Auth::user()->Fname;
-		$entity->save ();
+		// $fields = array ();
+		// $fields ['transactionType'] = "UPDATE";
+		// $fields ['tableName'] = $table;
+		// $fields ['recId'] = $data ['id'];
+		// $fields ['oldValues'] = $oldValues;
+		// $fields ['newValues'] = $newValues;
+		// $table = "\App\models\DBTransactions";
+		// $entity = new $table ();
+		// foreach ( $fields as $key => $value ) {
+		// 	$entity [$key] = $value;
+		// }
+		// $entity ["createdBy"] = Auth::user()->id;
+		// $fields ['insertedBy'] = Auth::user()->Fname;
+		// $entity->save ();
 		\Session::flash ( 'email_message', $fields );
 		return $ret_val;
 	}

@@ -130,7 +130,7 @@ function saveData() {
             }
         }).done(function(data, status, xhr) { //use this
             // alert(mobile);
-            location.href="{{ url('viewVendors')}}";  
+            // location.href="{{ url('dashboard')}}";  
         });
 
     }

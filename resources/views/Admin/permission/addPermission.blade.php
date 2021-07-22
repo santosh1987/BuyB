@@ -19,52 +19,18 @@
         <div class="col-lg-10 offset-1 mt-4 " >
             <div class="card">
                 <div class="card-header bg-purple py-3 text-white">
-                    <h5 class="card-title mb-0 text-white">Add Vendor</h5>
+                    <h5 class="card-title mb-0 text-white">Add Permission</h5>
                 </div>
                 <div class="card-body">
                     <div class="input-group mb-3 col-md-9">
-                        <input type="hidden" id="isVerifiedMobile" value="no" />
-                        <input type="hidden" id="isVerifiedGst" value="no" />
-                        <input type="text" class="form-control" placeholder="GST No" id="gstNo" name="gatNo" aria-label="GST NO">
-                        <div class="input-group-append">
-                            <button class="btn btn-dark waves-effect waves-light" type="button" id="gstButton" onclick="verifyGst()">Verify GSTIN</button>
-                        </div>
+                        <input type="text" class="form-control" placeholder="Permission Name" id="permissionName" name="permissionName" aria-label="Permission Name">
                     </div>
-                    <div style="display:none;" id="mobileDiv">
-                        <div class="input-group mb-3 col-md-9">
-                            <input type="text" class="form-control" placeholder="Mobile No" id="mobile" name="mobile" aria-label="GST NO">
-                            <div class="input-group-append">
-                                <button class="btn btn-dark waves-effect waves-light" type="button" id="vrfyBtn" onclick="verifyMobile()">Verify Mobile</button>
-                            </div>
-                        </div>
+                    <div class="input-group mb-3 col-md-9">
+                        <input type="text" class="form-control" placeholder="Permission Display Name" id="displayName" name="displayName" aria-label="Permission Display Name">
                     </div>
-                    <div id="form" style="display:none">
-                        <div class="position-relative">
-                            <div class="card p-2 text-center">
-                                <h6>Please enter the one time password <br> </h6>
-                                <div> <span> sent to</span> <small id="sendto"></small> </div>
-                                <div id="otp" class="inputs d-flex flex-row justify-content-center mt-2"> 
-                                    <input class="m-2 text-center form-control rounded" type="text" id="input1" v-on:keyup="inputenter(1)" pattern="[0-9]{1}" maxlength="1" /> 
-                                    <input class="m-2 text-center form-control rounded" v-on:keyup="inputenter(2)" pattern="[0-9]{1}" type="text" id="input2" maxlength="1" /> 
-                                    <input class="m-2 text-center form-control rounded" v-on:keyup="inputenter(3)" pattern="[0-9]{1}" type="text" id="input3" maxlength="1" /> 
-                                    <input class="m-2 text-center form-control rounded" v-on:keyup="inputenter(4)" pattern="[0-9]{1}" type="text" id="input4" maxlength="1" /> 
-                                </div>
-                                <div class="mt-4"> <button onclick="verifyCode()" class="btn btn-danger px-4 validate">Validate</button> </div>
-                                <div class="mt-3 content d-flex justify-content-center align-items-center"> <span>Didn't get the code</span> <a onclick="resendCode()" class="text-decoration-none ms-3" id="resendCode">Resend(1/3)</a> </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="remDiv" style="display:none;">
-                        <div class="form-group  mb-3">
-                            <label for="email" class="col-5 col-form-label">Vendor E-mail</label>
-                            <div class="col-9">
-                                <input type="email" class="form-control" placeholder="Vendor E-Mail" id="email" name="email" aria-label="Vendor E-mail">
-                            </div>
-                        </div>   
-                        <div class="input-group mb-3 col-md-9">
-                            <button class="btn btn-primary" id="saveData" onclick="saveData()"> Save</button>
-                        </div>                     
-                    </div>
+                    <div class="input-group mb-3 col-md-9">
+                        <input type="text" class="form-control" placeholder="Permission Description" id="description" name="description" aria-label="Permission Description">
+                    </div>                   
                    
                 </div>  <!-- end card-body -->
             </div>  <!-- end card -->
@@ -130,7 +96,7 @@ function saveData() {
             }
         }).done(function(data, status, xhr) { //use this
             // alert(mobile);
-            location.href="{{ url('viewVendors')}}";  
+            // location.href="{{ url('dashboard')}}";  
         });
 
     }

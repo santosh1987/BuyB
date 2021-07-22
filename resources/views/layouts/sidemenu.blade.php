@@ -81,6 +81,55 @@ $vusers = \App\Models\User::where('id',Auth::user()->id)->whereRoleIs(['administ
                 </ul>
             </li>
 
+            <li>
+                <a href="javascript: void(0);">
+                    <i class="fas fa-users-cog"></i>
+                    <span> Administrators </span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <ul class="nav-second-level" aria-expanded="false">
+                    <li>
+                        <a href="addAdmin">Add Admin</a>
+                    </li>
+                    <li>
+                        <a href="viewAdmin">View Administrators</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript: void(0);">
+                    <i class="fas fa-cog"></i>
+                    <span> Role Permissions </span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <ul class="nav-second-level" aria-expanded="false">
+                    <!-- <li>
+                        <a href="addPermission">Add Permission</a>
+                    </li> -->
+                    <li>
+                        <a href="viewPermission">View Permission</a>
+                    </li>
+                    <li>
+                        <a href="assignPermission">Assign Permission</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript: void(0);">
+                    <i class="fas fa-cog"></i>
+                    <span> Role Management </span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <ul class="nav-second-level" aria-expanded="false">
+                    <!-- <li>
+                        <a href="addPermission">Add Permission</a>
+                    </li> -->
+                    <li>
+                        <a href="viewRole">View Roles</a>
+                    </li>
+                    
+                </ul>
+            </li>
 
            
         </ul>

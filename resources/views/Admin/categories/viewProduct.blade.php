@@ -1,46 +1,74 @@
+<!-- {{$products}} -->
 @extends('Master')
 
  @section('content')
+<script>
+    // alert("{{Session::get('message')}}");
+    </script>
  <div class="content">
 
     <!-- Start Content-->
     <div class="container-fluid">
         <div class="row mt-3">
             <div class="col-12 ">
-                <div class="card">
-                    
+                <div class="card">                    
                     <div class="card-body">
-                        <h3 class="header-title">All Sub Categories</h3>
-                        <br>
-                        <div class="col-lg-12">
-                            <div class="text-lg-right mt-3 mt-lg-0">
-                                
-                                <a href="#custom-modal" class="btn btn-primary waves-effect waves-light"
-                                    data-animation="fadein" data-plugin="custommodal" data-overlayColor="#38414a"><i
-                                        class="mdi mdi-plus-circle mr-1"></i> Add SubCategory</a>
+                        <div class="row">
+                            <div class="col-6">
+                                <h3 class="header-title">All Products</h3>
+                            </div>
+                            <div class="col-6">
+                                <div class="" style="float:right;margin-top:-10px;">                                
+                                    <button onclick="javascript:location.href='addProduct'" class="btn btn-primary" data-overlayColor="#38414a"><i
+                                        class="mdi mdi-plus-circle mr-1" ></i> Add Product</button>
+                                </div>
                             </div>
                         </div>
-                         <br>
+                        <div class="row">
+                    &nbsp;
+                        </div>
+                        <div class="col-lg-12">
+                            @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            @endif
+                            @if ($message = Session::get('message'))
+                            <div class="alert alert-success alert-block">
+                                <button type="button" class="close" data-dismiss="alert">×</button>    
+                                <strong>{{ $message }}</strong>
+                            </div>
+                            @endif
+                            
+                        </div>
                         <table id="key-datatable" class="table dt-responsive nowrap">
                             <thead>
                                 <tr>
-                                    <th>SNo</th>
+                                    <th>S No</th>
                                     <th>Category Name</th>
-                                    <th>Sub Category Name </th>
-                                    <th>Description </th>
+                                    <th>Sub Category Name</th>
+                                    <th>Product Name</th>
+                                    <th>Description</th>
+                                    <th>Image</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                         
                             <tbody>
                                 <?php $i = 0  ?>
-                                @foreach($subcategories as $subcategory)
+                                @foreach($products as $product)
                                 <tr>
                                     <td> {{ ++$i}} </td>
-                                    <td>{{$subcategory->categoryName}}</td>
-                                    <td>{{$subcategory->subCategoryName}}</td>
-                                    <td>{{$subcategory->description}}</td>
-                                    <td><i style='color:#5f82bd;font-size:20px;' class='fa fa-edit' onclick="updateModal({{$subcategory->id}})"></i>&emsp;&emsp;&emsp;<i  style='color:red;font-size:20px;' class='fa fa-trash' onclick='deleteSubCategory({{$subcategory->id}})'></i>&emsp;&emsp;&emsp;<?php if($subcategory->status == 'ACTIVE') { ?> <i  style='color:blue;font-size:20px;' class='fas fa-eye' onclick='changeStatus({{$subcategory->id}})'></i><?php } else if($subcategory->status == 'IN-ACTIVE') {?>&emsp;&emsp;&emsp;<i  style='color:blue;font-size:20px;' class='fas fa-eye-slash' onclick='changeStatus({{$subcategory->id}})'></i><?php } ?></td>
+                                    <td>{{$product->categoryName}}</td>
+                                    <td>{{$product->subCategoryName}}</td>
+                                    <td>{{$product->productName}}</td>
+                                    <td>{{$product->description}}</td>
+                                    <td><img style="max-width: 40%; height: auto;" src="storage/app/{{$product->imagePath}}"></td>
+                                    <td><i style='color:#5f82bd;font-size:20px;' class='fa fa-edit' onclick="updateModal({{$product->id}})"></i>&emsp;&emsp;&emsp;<i  style='color:red;font-size:20px;' class='fa fa-trash' id="sa-warning" onclick='deleteCategory({{$product->id}})'></i>&emsp;&emsp;&emsp;<?php if($product->status == 'ACTIVE') { ?> <i  style='color:blue;font-size:20px;' class='fas fa-eye' onclick='changeStatus({{$product->id}})'></i><?php } else if($product->status == 'IN-ACTIVE') {?>&emsp;&emsp;&emsp;<i  style='color:blue;font-size:20px;' class='fas fa-eye-slash' onclick='changeStatus({{$product->id}})'></i><?php } ?></td>
                                 </tr>
                                 @endforeach
                                 
@@ -57,51 +85,37 @@
             <button type="button" class="close" onclick="Custombox.modal.close();">
                 <span>&times;</span><span class="sr-only">Close</span>
             </button>
-            <h4 class="custom-modal-title">New Sub Category</h4>
+            <h4 class="custom-modal-title">New Category</h4>
             <div class="custom-modal-text text-left">
-                <form method="post" action="addSubCat" id="formId">
+                <form action="addCategory" id="formId"  method="POST">
                     @csrf
-                    <div class="form-group mb-3">
-                        <label for="catName">Category Name</label>
-                        <div class="col-9">
-                        <select class="form-control" id="catId" name="catId" required>
-                            <option value="">Select</option>
-                            <?php 
-                                $cats = \App\Models\Category::get();
-                                ?>
-                                @foreach($cats as $category) 
-                                <option value="{{$category['id']}}">{{$category['categoryName']}}</option>
-                                @endforeach
-                            
-                        </select>
-                    </div>
-                    </div>
+                    <input type="hidden" class="form-control" id="upsert" name="upsert" value="0">
                     <div class="form-group  mb-3">
-                        <label for="subcatName" class="col-3 col-form-label">Sub Category Name</label>
+                        <label for="catName" class="col-3 col-form-label">Category Name</label>
                         <div class="col-9">
-                            <input type="hidden" class="form-control" id="id" name="id" value="">
-                            <input type="text" class="form-control" id="subCatName" name="subCatName" placeholder="Sub Category Name" required>
+                            <input type="text" class="form-control" id="catName" name="catName" placeholder="Category Name" required>
                         </div>
                     </div>
                     <div class="form-group  mb-3">
-                        <label for="subcatDesc" class="col-5 col-form-label">Sub Category Description</label>
+                        <label for="catDesc" class="col-5 col-form-label">Category Description</label>
                         <div class="col-9">
-                            <textarea rows="3" class="form-control" id="subCatDesc" name="subCatDesc" required placeholder="sub Category Description"> </textarea>
+                            <textarea rows="3" class="form-control" id="catDesc" name="catDesc" placeholder="Category Description" required> </textarea>
                         </div>
-                    </div>
+                    </div>   
                     <div class="form-group mb-0 justify-content-end row">
                         <div class="col-9">
-                            <button type="submit" id="buttonChange" class="btn btn-info waves-effect waves-light">Add</button>
+                            <button onclick="saveMasterCategory(0)" id="buttonChange" class="btn btn-info waves-effect waves-light">Add</button>
                         </div>
-                    </div>
+                    </div>                 
                 </form>
+                
             </div>
         </div>
     </div>
 <div>
 <script>
      function updateModal(val) {
-        $.ajax('getSubMasterCategoryById', {
+        $.ajax('getMasterCategoryById', {
             type: 'POST',  // http method
             data: { "id": val },  // data to submit
             success: function (data, status, xhr) {
@@ -140,14 +154,11 @@
         with data from server
     */
     function loadModal(data) {
-        $("#catId").val(data[0].catId);
-        $("#subCatName").val(data[0].subCategoryName);
-        $("#subCatDesc").val(data[0].description);
+        $("#catName").val(data[0].categoryName);
+        $("#catDesc").val(data[0].description);
         $("#upsert").val("1");
-        $("#id").val(data[0].id);
-        $("#formId").attr('action','updateSubCat')
         // alert(data[0].id);
-        // $("#buttonChange").attr("onclick", "saveMasterCategory("+data[0].id+")");
+        $("#buttonChange").attr("onclick", "saveMasterCategory("+data[0].id+")");
         $("#buttonChange").html("Update");
         var modal = new Custombox.modal({
             content: {
@@ -179,13 +190,13 @@
         // Open
         modal.open();
     }
-    function deleteSubCategory(id) {
-        $.ajax('deleteSubCategory', {
+    function deleteCategory(id) {
+        $.ajax('deleteCategory', {
             type: 'POST',  // http method
             data: { "id": id},  // data to submit
             success: function (data, status, xhr) {
                 if(data == 'success') {
-                    toastr.error("Sub Category Deleted");
+                    toastr.error("Category Deleted");
                 }    
                 setTimeout(function () {
                     location.reload(true);
@@ -197,12 +208,12 @@
         });
     }
     function changeStatus(id) {
-        $.ajax('changeStatusSubCat', {
+        $.ajax('changeStatusCat', {
             type: 'POST',  // http method
             data: { "id": id},  // data to submit
             success: function (data, status, xhr) {
                 if(data == 'success') {
-                    toastr.info("Sub Category Status Changed");
+                    toastr.info("Category Status Changed");
                 }    
                 setTimeout(function () {
                     location.reload(true);
@@ -214,5 +225,5 @@
         });
     }
  </script>
-     
+  
  @endsection
