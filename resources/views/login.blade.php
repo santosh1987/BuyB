@@ -35,7 +35,11 @@
                                 </div>
 
                                 <!-- <h5 class="auth-title">Sign In</h5> -->
-
+                                <div class="row">
+                                    <p style="color:red;">{{ $errors->first('email') }}</p>
+                                   
+                                   
+                                </div>
                                 <form action="{{ route('login.store') }}" method="post">
                                     <div class="form-group mb-3">
                                         <label for="emailaddress">Email address</label>

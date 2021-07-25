@@ -52,6 +52,12 @@
                     </div>
                     <div id="remDiv" style="display:none;">
                         <div class="form-group  mb-3">
+                            <label for="email" class="col-5 col-form-label">Representative Name</label>
+                            <div class="col-9">
+                                <input type="email" class="form-control" placeholder="Representatvie Name" id="name" name="name" aria-label="Representative Name">
+                            </div>
+                        </div>
+                        <div class="form-group  mb-3">
                             <label for="email" class="col-5 col-form-label">Representative E-mail</label>
                             <div class="col-9">
                                 <input type="email" class="form-control" placeholder="Representatvie E-Mail" id="email" name="email" aria-label="Representative E-mail">
@@ -109,12 +115,18 @@ function checkEmail(email) {
 }
 function saveData() {
     var email = $("#email").val();
+    var name = $("#name").val();
+    var dob = $("#dob").val();
+    var address = $("#address").val();
     var mobileVerified = $("#isVerifiedMobile").val();
     var flag = checkEmail(email);
     var formData = new FormData(); 
     formData.append("phoneNum", $("#mobile").val());
     formData.append("email", email);
-    if(!flag) {
+    formData.append("dob", dob);
+    formData.append("address", address);
+    formData.append("name", name);
+    if(!flag && mobileVerified == 'yes') {
         $.ajax("{{url('addRepresntative')}}", {
             type: 'POST',  // http method
             dataType: 'text',  // what to expect back from the PHP script, if anything
@@ -137,7 +149,7 @@ function saveData() {
             }
         }).done(function(data, status, xhr) { //use this
             // alert(mobile);
-            // location.href="{{ url('dashboard')}}";  
+            location.href="{{ url('viewAdmin')}}";  
         });
 
     }

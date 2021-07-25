@@ -11,6 +11,8 @@ use App\Models\User;
 use App\Models\VendorDetails;
 use App\Models\VendorGstDetails;
 use App\Models\Permission;
+use App\Models\PermissionRole;
+use App\Models\Role;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\View;
 
@@ -26,6 +28,12 @@ class PermissionController extends Controller
     public function viewPermission(Request $request) {
         $permissions = Permission::all();
        return view('admin.permission.viewPermission', compact('permissions'));
+    }
+
+    public function assignPermission(Request $request) {
+        $permissions = Permission::all();
+        $roles = Role::all();
+        return view('admin.permission.assignPermission', compact('permissions', 'roles'));
     }
     
     public function savePermission(Request $request) {
@@ -69,5 +77,55 @@ class PermissionController extends Controller
         $permission->delete();
         return "success";
     }
+    
+    public function getPermissionByRoleId(Request $request) {
+        $permissionRole = PermissionRole::leftjoin('permissions', 'permission_role.permission_id', '=', 'permissions.id')->select('permissions.name', 'permissions.display_name', 'permissions.description', 'permissions.id')->where('permission_role.role_id', $request['id'])->get();
+        return $permissionRole->toJson();
+    }
+    public function getNotAssignedPermissionByRoleId(Request $request) {
+        // $permissions = Permission::select('permissions.id')->get();
+        $permissionRole = PermissionRole::select('permission_role.permission_id')->where('permission_role.role_id', $request['id'])->get();
+        $permissions = Permission::select('permissions.id', 'permissions.name')->whereNotIn('id', $permissionRole)->get();
+        // die($permissions);
+        return $permissions->toJson();
+    }
+
+    public function updatePermissions(Request $request) {
+        $values = $request->all();
+        // print_r($values);
+        $permissions = PermissionRole::where('role_id',$values['id'])->select('id')->get();
+        // die($permissions);
+       
+        foreach($permissions as $permission) {
+            // print_r($permission['id'] . " , ");
+            $permission = PermissionRole::find($permission['id']);
+            $permission->delete();
+        }
+        // die();
+
+        $permissionData = array();
+        // $permissionData['permission_id'] = $id;
+        $permissionData['role_id'] = $values['id'];
+        $cnt = 0;
+        // die($values['selected']);
+        foreach($values['selected'] as $selected) {
+            // echo $selected;
+            // echo "selected";
+            $permissionData['permission_id'] = $selected;
+            $db_functions_ctrl = new DBFunctionsController();
+            $table = "App\models\PermissionRole";
+            $val = $db_functions_ctrl->insert($table, $permissionData);
+            if($val > 0) {
+                $cnt = $cnt + 1;
+            }
+        }
+        if($cnt == count($values['selected'])) {
+            return "success";
+        }
+        return "failed";
+
+
+    }
+
     
 }

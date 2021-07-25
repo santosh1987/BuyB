@@ -88,6 +88,9 @@ Route::group(['middleware'=>['auth','role:superadministrator']], function ()
 
     //Admins
     Route::get('/addAdmin', 'App\Http\Controllers\Admin\AdminController@addAdmin');
+    Route::post('/addRepresntative', 'App\Http\Controllers\Admin\AdminController@addAdmin');
+    Route::get('/viewAdmin', 'App\Http\Controllers\Admin\AdminController@display');
+    
     
     //Role Permissions
 
@@ -97,7 +100,11 @@ Route::group(['middleware'=>['auth','role:superadministrator']], function ()
     Route::post('/getPermission', 'App\Http\Controllers\Admin\PermissionController@getPermission');
     
     Route::post('/deletePermission', 'App\Http\Controllers\Admin\PermissionController@deletePermission');
-
+    Route::get('/assignPermission', 'App\Http\Controllers\Admin\PermissionController@assignPermission');
+    Route::post('/getPermissionByRoleId', 'App\Http\Controllers\Admin\PermissionController@getPermissionByRoleId');
+    Route::post('/getNotAssignedPermissionByRoleId', 'App\Http\Controllers\Admin\PermissionController@getNotAssignedPermissionByRoleId');
+    Route::post('/updatePermissions', 'App\Http\Controllers\Admin\PermissionController@updatePermissions');
+    
 
     //Roles
 

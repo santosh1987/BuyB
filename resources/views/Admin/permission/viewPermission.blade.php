@@ -240,29 +240,29 @@
         return true;
     }
     function deletePermission(id) {
-        $.ajax("{{url('deletePermission')}}", {
-                type: 'POST',  // http method
-                data: {"id": id},                        
-                success: function (data, status, xhr) {
-                    //   alert(data+" "+status);
-                        if(data === "success" ) {
-                            toastr.error('Permission Deleted '); 
-                        }
-                        else if(data === "failed" ) {
-                            toastr.info('Permission Failed to delete '); 
-                        }
-                    },
-                error: function (jqXhr, textStatus, errorMessage) {
-                    // alert(data+" "+status);
-                    toastr.error('Permission Not Deleted '+errorMessage);
+    $.ajax("{{url('deletePermission')}}", {
+            type: 'POST',  // http method
+            data: {"id": id},                        
+            success: function (data, status, xhr) {
+                //   alert(data+" "+status);
+                    if(data === "success" ) {
+                        toastr.error('Permission Deleted '); 
+                    }
+                    else if(data === "failed" ) {
+                        toastr.info('Permission Failed to delete '); 
+                    }
+                },
+            error: function (jqXhr, textStatus, errorMessage) {
+                // alert(data+" "+status);
+                toastr.error('Permission Not Deleted '+errorMessage);
 
-                }
-            }).done(function(data, status, xhr) { //use this
-                // alert(mobile);
-                setTimeout(function () {
-                    location.reload(true);
-                }, 2000);
-            });
+            }
+        }).done(function(data, status, xhr) { //use this
+            // alert(mobile);
+            setTimeout(function () {
+                location.reload(true);
+            }, 2000);
+        });
     }
 
  </script>

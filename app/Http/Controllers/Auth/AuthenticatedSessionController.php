@@ -29,12 +29,18 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request)
     {
         // echo "hi";
+        try {
         $request->authenticate();
-        // print_r($request->authenticate());
+        } catch (ValidationException $exception) {
+            return back()->withError($exception->getMessage());
+        }
         // die($users = \App\Models\User::whereRoleIs(['superadministrator'])->get());
         $susers = \App\Models\User::where('id',Auth::user()->id)->whereRoleIs(['superadministrator'])->get();
         $vusers = \App\Models\User::where('id',Auth::user()->id)->whereRoleIs(['administrator','vendor'])->get();
         $request->session()->regenerate();
+        // print_r($request->authenticate()."hi");
+        // die();
+        // die('hi');
         // die($susers->isEmpty());
         // if(!$susers->isEmpty() && $vusers->isEmpty()) {
         //     return redirect()->intended(RouteServiceProvider::SHOME);
