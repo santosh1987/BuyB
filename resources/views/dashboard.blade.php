@@ -72,12 +72,12 @@
                         <div class="mt-1">
                             <div class="float-left" dir="ltr">
                                 <input data-plugin="knob" data-width="64" data-height="64" data-fgColor="#f05050 "
-                                    data-bgColor="#F9B9B9" value="58"
+                                    data-bgColor="#F9B9B9" value="{{count($vendorsTime)}}/{{count($vendors)}}"
                                     data-skin="tron" data-angleOffset="180" data-readOnly=true
                                     data-thickness=".15"/>
                             </div>
                             <div class="text-right">
-                                <h2 class="mt-3 pt-1 mb-1"> 268 </h2>
+                                <h2 class="mt-3 pt-1 mb-1">{{count($vendorsTime)}}  </h2>
                                 <p class="text-muted mb-0">Since last week</p>
                             </div>
                             <div class="clearfix"></div>

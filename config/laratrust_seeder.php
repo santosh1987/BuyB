@@ -30,6 +30,7 @@ return [
         ],
         'user' => [
             'profile' => 'r,u',
+            'dashboard' => 'c,r,u,d',
         ]
     ],
 

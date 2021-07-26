@@ -31,7 +31,7 @@
                         <div class="text-center">
                             <h2>
                                 <a href="index.html">
-                                    <img src="{{asset('public/Admin/images/logo-dark.png')}}" alt="main-logo" height="28" />
+                                    <img src="{{asset('public/Admin/images/logo.png')}}" alt="main-logo" height="28" />
                                 </a>
                             </h2>
 

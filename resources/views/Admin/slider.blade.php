@@ -1,5 +1,5 @@
 
-@extends('Master')
+@extends('master')
 
  @section('content')
 <script>

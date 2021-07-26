@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+// use Auth;
 
 
 require __DIR__.'/auth.php';
@@ -15,10 +16,8 @@ require __DIR__.'/auth.php';
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard');
-})->middleware('auth');
-
+Route::get('/', 'App\Http\Controllers\Admin\DashboardController@display')->middleware('auth');
+Route::get('dashboard', 'App\Http\Controllers\Admin\DashboardController@display')->middleware('auth');
 
 // Route::get('dashboard', function() {
 //          return view('dashboard');
@@ -26,11 +25,15 @@ Route::get('/', function () {
 
 Route::group(['middleware'=>['auth','role:superadministrator']], function ()
 {
-    
+    // echo "hi";
+    // die();
 
-    Route::get('dashboard', function() {
-        return view('dashboard');
-   });
+//     Route::get('dashboard', function() {
+//         return view('dashboard');
+//    });
+//     Route::get('/', function() {
+//         return view('dashboard');
+//     });
 
     
 
@@ -126,20 +129,38 @@ Route::group(['middleware'=>['auth','role:superadministrator']], function ()
     
 });
 
-//administrator routes
-Route::group(['middleware'=>['auth','role:administrator']], function ()
+//vendor routes
+Route::group(['middleware'=>['auth','role:vendor']], function ()
 {
-    // Route::get('dashboard', function() {
-    //      return view('dashboard');
-    // });
+    Route::get('/addProductRequest', 'App\Http\Controllers\Vendors\ProductController@addProductRequest');
+    Route::get('/addProductRequest/{id}', 'App\Http\Controllers\Vendors\ProductController@addProductRequestUpdate');
+    Route::post('getSubMasterCategoryByIdVendor', 'App\Http\Controllers\Vendors\ProductController@getSubMasterCategoryByIdVendor');
+    Route::post('getProductDataByCatnSubVendor', 'App\Http\Controllers\Vendors\ProductController@getProductDataByCatnSubVendor');
+    Route::post('/addProductRequest', 'App\Http\Controllers\Vendors\ProductController@addProductRequest');
+    Route::post('/updateProductRequest', 'App\Http\Controllers\Vendors\ProductController@updateProductRequest');
+    Route::get('/viewProductRequest', 'App\Http\Controllers\Vendors\ProductController@viewProductRequest');
+    Route::post('/deleteProductRequest', 'App\Http\Controllers\Vendors\ProductController@deleteProductRequest');
+
+    
+    // Route::post('getSubMasterCategoryByIdVendor', 'App\Http\Controllers\Vendor\ProductController@getSubMasterCategoryByIdVendor');
 });
 
-// vendor routes
-Route::group(['middleware'=>['auth', 'role:vendor']], function ()
-{
-    // Route::get('dashboard', function() {
-    //      return view('dashboard');
-    // });
-});
 
+Route::get('changePassword', function() {
+    return view('changePassword');
+})->middleware(['auth', 'role:vendor|administrator|superadministrator']);
+Route::post('/changePassword', 'App\Http\Controllers\Users\ProfileController@changePassword')->middleware(['auth', 'role:vendor|administrator|superadministrator']);
 
+Route::get('lockscreen', function() {
+    return view('lockscreen');
+})->middleware(['auth', 'role:vendor|administrator|superadministrator']);
+Route::post('/unLock', 'App\Http\Controllers\Users\ProfileController@unLock')->middleware(['auth', 'role:vendor|administrator|superadministrator']);
+
+// Route::get('/addProductRequest', 'App\Http\Controllers\Vendors\ProductController@addProductRequest')->middleware(['auth', 'role:vendor']);
+// Route::get('/addProductRequest/{id}', 'App\Http\Controllers\Vendors\ProductController@addProductRequestUpdate')->middleware(['auth', 'role:vendor']);
+// Route::post('getSubMasterCategoryByIdVendor', 'App\Http\Controllers\Vendors\ProductController@getSubMasterCategoryByIdVendor')->middleware(['auth', 'role:vendor']);
+// Route::post('getProductDataByCatnSubVendor', 'App\Http\Controllers\Vendors\ProductController@getProductDataByCatnSubVendor')->middleware(['auth', 'role:vendor']);
+// Route::post('/addProductRequest', 'App\Http\Controllers\Vendors\ProductController@addProductRequest')->middleware(['auth', 'role:vendor']);
+// Route::post('/updateProductRequest', 'App\Http\Controllers\Vendors\ProductController@updateProductRequest')->middleware(['auth', 'role:vendor']);
+// Route::get('/viewProductRequest', 'App\Http\Controllers\Vendors\ProductController@viewProductRequest')->middleware(['auth', 'role:vendor']);
+// Route::post('/deleteProductRequest', 'App\Http\Controllers\Vendors\ProductController@deleteProductRequest')->middleware(['auth', 'role:vendor']);

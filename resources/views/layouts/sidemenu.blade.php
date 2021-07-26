@@ -1,9 +1,12 @@
 <?php 
-
+// use Auth;
 use App\Providers\RouteServiceProvider;
 $susers = \App\Models\User::where('id',Auth::user()->id)->whereRoleIs(['superadministrator'])->get();
 $vusers = \App\Models\User::where('id',Auth::user()->id)->whereRoleIs(['administrator','vendor'])->get();
-
+$roleData = \App\Models\User::leftjoin('role_user', 'users.id','=', 'role_user.user_id')->select('role_user.role_id as id')->where('users.id', Auth::user()->id)->get();
+$roleData = $roleData[0];
+// print_r($roleData['id']);
+// die();
 ?>
 <script>
     // $(document).ready(function() { 
@@ -32,6 +35,7 @@ $vusers = \App\Models\User::where('id',Auth::user()->id)->whereRoleIs(['administ
                     <span> Dashboard</span>                     
                 </a>               
             </li>
+            @if($roleData['id'] == '1')
             <li >
                 <a href="{{url('viewSlider')}}" id="slider">
                     <i class="la la-dashboard"></i>
@@ -135,7 +139,91 @@ $vusers = \App\Models\User::where('id',Auth::user()->id)->whereRoleIs(['administ
                     
                 </ul>
             </li>
-
+            @elseif($roleData['id'] == '3')
+            <li>
+                <a href="javascript: void(0);">
+                    <i class="fas fa-shopping-basket"></i>
+                    <span> Product Quantity Management </span>  
+                    <span class="menu-arrow"></span>
+                </a>
+                <ul class="nav-second-level" aria-expanded="false">
+                    <li>
+                        <a href="addProductRequest">Add Product Request</a>
+                    </li>
+                    <li>
+                        <a href="{{url('viewProductRequest')}}">View Product Request</a>
+                    </li>
+                    <li>
+                        <a href="{{url('vendorInventory')}}">Inventory</a>
+                    </li>
+                    
+                </ul>
+            </li>
+            <li>
+                <a href="javascript: void(0);">
+                    <i class="fas fa-chart-line"></i>
+                    <span> Orders Management </span>  
+                    <span class="menu-arrow"></span>
+                </a>
+                <ul class="nav-second-level" aria-expanded="false">
+                    <li>
+                        <a href="#">View Orders</a>
+                    </li>
+                    <!-- <li>
+                        <a href="{{url('viewProductRequest')}}">View Product Request</a>
+                    </li>
+                    <li>
+                        <a href="{{url('vendorInventory')}}">Inventory</a>
+                    </li> -->
+                    
+                </ul>
+            </li>
+            <li>
+                <a href="javascript: void(0);">
+                    <i class="fas fa-chart-bar"></i>
+                    <span> Reports </span>  
+                    <span class="menu-arrow"></span>
+                </a>
+                <ul class="nav-second-level" aria-expanded="false">
+                    <li>
+                        <a href="#">View Reports</a>
+                    </li>
+                    <!-- <li>
+                        <a href="{{url('viewProductRequest')}}">View Product Request</a>
+                    </li>
+                    <li>
+                        <a href="{{url('vendorInventory')}}">Inventory</a>
+                    </li> -->
+                    
+                </ul>
+            </li>
+            @elseif($roleData['id'] == '2')
+            <li>
+                <a href="javascript: void(0);">
+                    <i class="fas fa-cog"></i>
+                    <span> Manage Vendors </span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <ul class="nav-second-level" aria-expanded="false">
+                    <li>
+                        <a href="{url('addVendorRep')}}">Add Vendor </a>
+                    </li>
+                    <li>
+                        <a href="{{url('viewProductRequest')}}">View Vendors</a>
+                    </li>
+                    <li>
+                        <a href="{{url('viewReports')}}">View Reports</a>
+                    </li>
+                    
+                </ul>
+            </li>
+            <li>
+                <a href="{{url('viewReports')}}">
+                    <i class="fas fa-chart-bar"></i>
+                    <span> View Reports </span>
+                </a>
+            </li>
+            @endif
            
         </ul>
 

@@ -44,9 +44,14 @@
                 </a>
 
                 <!-- item-->
-                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                <a href="{{url('lockscreen')}}" class="dropdown-item notify-item">
                     <i class="fe-lock"></i>
                     <span>Lock Screen</span>
+                </a>
+                <!-- item-->
+                <a href="{{url('changePassword')}}" class="dropdown-item notify-item">
+                    <i class="fa fa-key"></i>
+                    <span>Change Password</span>
                 </a>
 
                 <div class="dropdown-divider"></div>

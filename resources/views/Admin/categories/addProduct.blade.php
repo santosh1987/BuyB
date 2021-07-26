@@ -1,4 +1,4 @@
-@extends('Admin.Master')
+@extends('Master')
 <?php 
 if($products != null ) {
     $product = $products[0];

@@ -32,8 +32,8 @@
             
         </div>
         <!-- END wrapper -->
-
+        <!-- <h1>hi</h1>  -->
         @include('layouts.scripts')
-        
+      
     </body>
 </html>
