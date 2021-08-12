@@ -18,13 +18,13 @@ class SliderController extends Controller
     public function insert(Request $request) {
         $validator = Validator::make($request->all(), [
             'sliderTitle' => 'required|string|max:100',
-            'sliderText' => 'required|string|min:5|max:255',
-            'buttonText' => 'required|string|min:5|max:255',
-            'buttonUrl' => 'required|string|min:5|max:255',
+            'sliderText' => 'required|string|max:255',
+            'buttonText' => 'required|string|max:255',
+            'buttonUrl' => 'required|string|max:255',
         ]);
 
         if ($validator->fails()) {
-            return redirect('viewCategory')
+            return redirect('viewSlider')
                         ->withErrors($validator)
                         ->withInput();
         }

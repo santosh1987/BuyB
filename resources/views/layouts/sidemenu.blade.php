@@ -148,7 +148,7 @@ $roleData = $roleData[0];
                 </a>
                 <ul class="nav-second-level" aria-expanded="false">
                     <li>
-                        <a href="addProductRequest">Add Product Request</a>
+                        <a href="{{url('addProductRequest')}}">Add Product Request</a>
                     </li>
                     <li>
                         <a href="{{url('viewProductRequest')}}">View Product Request</a>
@@ -156,7 +156,10 @@ $roleData = $roleData[0];
                     <li>
                         <a href="{{url('vendorInventory')}}">Inventory</a>
                     </li>
-                    
+                    <li>
+                        <a href="{{url('viewProductOffers')}}">View Offers</a>
+                    </li>
+
                 </ul>
             </li>
             <li>

@@ -59,6 +59,10 @@ Route::group(['middleware'=>['auth','role:superadministrator']], function ()
     //Products
     Route::get('viewProduct', 'App\Http\Controllers\Admin\ProductController@viewProduct');
     Route::get('addProduct', 'App\Http\Controllers\Admin\ProductController@addProduct');
+    Route::post('addImages', 'App\Http\Controllers\Admin\ProductController@addImages');
+    Route::post('getImagesById', 'App\Http\Controllers\Admin\ProductController@getImagesById');
+    
+
     Route::post('saveProduct', 'App\Http\Controllers\Admin\ProductController@saveProduct');
     Route::post('getProductById', 'App\Http\Controllers\Admin\ProductController@getProductById');
     Route::get('updateProduct/{id}', 'App\Http\Controllers\Admin\ProductController@updateProduct');
@@ -141,6 +145,8 @@ Route::group(['middleware'=>['auth','role:vendor']], function ()
     Route::get('/viewProductRequest', 'App\Http\Controllers\Vendors\ProductController@viewProductRequest');
     Route::post('/deleteProductRequest', 'App\Http\Controllers\Vendors\ProductController@deleteProductRequest');
 
+    Route::get('/viewProductOffers', 'App\Http\Controllers\Vendors\ProductController@viewProductOffers');
+
     
     // Route::post('getSubMasterCategoryByIdVendor', 'App\Http\Controllers\Vendor\ProductController@getSubMasterCategoryByIdVendor');
 });
@@ -155,6 +161,7 @@ Route::get('lockscreen', function() {
     return view('lockscreen');
 })->middleware(['auth', 'role:vendor|administrator|superadministrator']);
 Route::post('/unLock', 'App\Http\Controllers\Users\ProfileController@unLock')->middleware(['auth', 'role:vendor|administrator|superadministrator']);
+
 
 // Route::get('/addProductRequest', 'App\Http\Controllers\Vendors\ProductController@addProductRequest')->middleware(['auth', 'role:vendor']);
 // Route::get('/addProductRequest/{id}', 'App\Http\Controllers\Vendors\ProductController@addProductRequestUpdate')->middleware(['auth', 'role:vendor']);

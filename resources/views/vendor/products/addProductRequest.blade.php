@@ -1,6 +1,6 @@
 @extends('Master')
 <?php 
-$requestData = array();
+$requestData = "";
 if(!empty($requests) && !empty($products)) {
     $requests = $requests[0];
     $productId = $requests['productId'];
@@ -8,6 +8,9 @@ if(!empty($requests) && !empty($products)) {
     // die($products."hi");
     $catId = $products[0]['catId'];
     $productName = $products[0]['productName'];
+    $offerPrice = $requests['discount'];
+    $startDate = $requests['offerStartDate'];
+    $endDate = $requests['offerEndDate'];
     $price = $requests['price'];
     $quantity = $requests['quantity']; 
     $brandName = $requests['brandName']; 
@@ -36,7 +39,7 @@ if(!empty($requests) && !empty($products)) {
     }
 }
 else {
-    $requestData = array();
+    $requestData = null;
     $productId = null;
     $subCatId = null;
     $catId = null;
@@ -47,6 +50,9 @@ else {
     $mfd = null;
     $id = null;
     $exp = 0;
+    $offerPrice = null;
+    $startDate = null;
+    $endDate = null;
     $subcategories = array();
 }
 ?>
@@ -104,6 +110,24 @@ else {
                             
                         </div>
                         <div class="form-group form-default">
+                            <label class="float-label">Product Offer(%)</label>
+                            <input type="text" name="offerPrice" id="offerPrice" class="form-control" required="">
+                            <span class="form-bar"></span>
+                            
+                        </div>
+                        <div class="form-group form-default">
+                            <label class="float-label">Product Offer Start Date</label>
+                            <input type="date" name="startDate" id="startDate" class="form-control" required="">
+                            <span class="form-bar"></span>
+                            
+                        </div>
+                        <div class="form-group form-default">
+                            <label class="float-label">Product Offer End Date</label>
+                            <input type="date" name="endDate" id="endDate" class="form-control" required="">
+                            <span class="form-bar"></span>
+                            
+                        </div>
+                        <div class="form-group form-default">
                             <label class="float-label">Product MFD<span style="color:red;">*</span></label>
                             <input type="date" name="mfd" id="mfd" class="form-control" required="" placeholder="ProductMFD">
                             <span class="form-bar"></span>
@@ -123,7 +147,7 @@ else {
                     </div>                                                                    
                     <div class="row" id="btnId" style="display:none;">
                         <div class="col-md-4"></div>
-                        <div class="col-md-4"><button onclick="saveProduct()" class="btn btn-primary" id="btnChange">Save</button></div>
+                        <div class="col-md-4"><button onclick="saveProduct(0)" class="btn btn-primary" id="btnChange">Save</button></div>
                     </div>
                 </div>  <!-- end card-body -->
             </div>  <!-- end card -->
@@ -234,6 +258,9 @@ else {
         var brandName = $("#brandName").val();
         var quantity = $("#quantity").val();
         var price = $("#price").val();
+        var offerPrice = $("#offerPrice").val();
+        var startDate = $("#startDate").val();
+        var endDate = $("#endDate").val();
         var mfd = $("#mfd").val();
         var expiry = $("#expiry").val();
         var flag = checkData(categoryName, subCategoryName, productId, brandName, quantity, price, mfd, expiry);
@@ -245,6 +272,9 @@ else {
         formData.append("brandName", brandName);
         formData.append("quantity", quantity);
         formData.append("price", price);
+        formData.append("offerPrice", offerPrice);
+        formData.append("startDate", startDate);
+        formData.append("endDate", endDate);
         formData.append("mfd", mfd);
         formData.append("expiry", expiry);
         if(flag && id  == 0) { 
@@ -293,8 +323,8 @@ else {
         
     }
     $( document ).ready(function() {
-        var requests = "$requestData";
-        // alert(product);
+        var requests = "{{$requestData}}";
+        // alert(requests);
         if(requests != "" && requests != null) {
             $("#titleId").html("Update Product Request");
             $("#remDiv").show();
@@ -305,6 +335,9 @@ else {
             $("#brandName").val("{{$brandName}}");
             $("#quantity").val("{{$quantity}}");
             $("#price").val("{{$price}}");
+            $("#offerPrice").val("{{$offerPrice}}");
+            $("#startDate").val("{{$startDate}}");
+            $("#endDate").val("{{$endDate}}");
             $("#mfd").val("{{$mfd}}");
             $("#btnId").show();
             $("#btnChange").html("Update");

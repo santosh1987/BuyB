@@ -14,12 +14,12 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-6">
-                                <h3 class="header-title">All Requests</h3>
+                                <h3 class="header-title">All Offers</h3>
                             </div>
                             <div class="col-6">
                                 <div class="" style="float:right;margin-top:-10px;">                                
                                     <a href="{{url('addProductRequest')}}" class="btn btn-primary waves-effect waves-light" ><i
-                                        class="mdi mdi-plus-circle mr-1"></i> Add Request</a>
+                                        class="mdi mdi-plus-circle mr-1"></i> Add Offer</a>
                                 </div>
                             </div>
                         </div>
@@ -52,31 +52,29 @@
                                     <th>SubCategory Name</th>
                                     <th>Product Name</th>
                                     <th>Brand Name</th>
-                                    <th>Price</th>
-                                    <th>Offer Price(%)</th>
-                                    <th>Offer Start Date</th>
-                                    <th>Offer End Date</th>
-                                    <th>Expiry</th>
-                                    <th>Qunatity</th>
+                                    <th>Offer</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Old Price</th>
+                                    <th>New Price</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                         
                             <tbody>
                                 <?php $i = 0  ?>
-                                @foreach($requests as $request)
+                                @foreach($offers as $offer)
                                 <tr>
                                     <td> {{ ++$i}} </td>
-                                    <td><p data-toggle="tooltip" data-placement="top" title="" data-original-title="{{$request->categoryName}}">{{strlen($request->categoryName) > 20 ? substr($request->categoryName,0,20)."..." : $request->categoryName;}}</p></td>
-                                    <td>{{$request->subCategoryName}}</td>
-                                    <td>{{$request->productName}}</td>
-                                    <td>{{$request->brandName}}</td>
+                                    <td><p data-toggle="tooltip" data-placement="top" title="" data-original-title="{{$offer->categoryName}}">{{strlen($offer->categoryName) > 20 ? substr($offer->categoryName,0,20)."..." : $$offer->categoryName;}}</p></td>
+                                    <td>{{$offer->subCategoryName}}</td>
+                                    <td>{{$offer->productName}}</td>
+                                    <td>{{$offer->brandName}}</td>
+                                    <td>{{$offer->offer}} %</td>
+                                    <td>{{$offer->startDate}}</td>
+                                    <td>{{$offer->endDate}}</td>
                                     <td>&#8377; {{number_format($request->price, 2)}}</td>
-                                    <td>{{number_format($request->discount, 2)}} %</td>
-                                    <td>{{$request->offerStartDate}} %</td>
-                                    <td>{{$request->offerEndDate}}</td>
-                                    <td>{{$request->expiry}}</td>
-                                    <td>{{$request->quantity}}</td>
+                                    <td>&#8377; {{number_format($request->price, 2)}}</td>
                                     <td><i style='color:#5f82bd;font-size:20px;' class='fa fa-edit' onclick="updateModal({{$request->id}})"></i>&emsp;&emsp;&emsp;<i  style='color:red;font-size:20px;' class='fa fa-trash' id="sa-warning" onclick='deleteProductRequest({{$request->id}})'></i></td>
                                 </tr>
                                 @endforeach
@@ -92,14 +90,14 @@
 <div>
 <script>
      function updateModal(val) {
-        location.href="{{url('addProductRequest')}}/"+val;
+        location.href="{{url('addProductOffer')}}/"+val;
      }
 
 
      function saveMasterCategory(id) {
         var catName = $("#catName").val();
         var catDesc = $("#catDesc").val();
-        $.ajax("{{url('updateCategory')}}", {
+        $.ajax('updateCategory', {
             type: 'POST',  // http method
             data: { "id": id, "catName":catName, "catDesc":catDesc },  // data to submit
             success: function (data, status, xhr) {
@@ -157,7 +155,7 @@
         modal.open();
     }
     function deleteCategory(id) {
-        $.ajax("{{url('deleteCategory')}}", {
+        $.ajax('deleteCategory', {
             type: 'POST',  // http method
             data: { "id": id},  // data to submit
             success: function (data, status, xhr) {
@@ -174,7 +172,7 @@
         });
     }
     function changeStatus(id) {
-        $.ajax("{{url('changeStatusCat')}}", {
+        $.ajax('changeStatusCat', {
             type: 'POST',  // http method
             data: { "id": id},  // data to submit
             success: function (data, status, xhr) {

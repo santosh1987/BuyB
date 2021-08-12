@@ -9,6 +9,7 @@ use \App\Models\Category;
 use \App\Models\SubCategories;
 use \App\Models\MasterProducts;
 use \App\Models\ProductInventory;
+use \App\Models\ProductInventoryOffers;
 use Auth;
 class ProductController extends Controller
 {
@@ -16,7 +17,7 @@ class ProductController extends Controller
     public function __construct(Request $request)
     {
     //  
-        $this->middleware(['auth', 'role:vendor'], ['only' => ['addProductRequest', 'addProductRequest/{id}', 'getSubMasterCategoryByIdVendor', 'getProductDataByCatnSubVendor', 'viewProductRequest', 'updateProductRequest']]);
+        $this->middleware(['auth', 'role:vendor'], ['only' => ['addProductRequest', 'addProductRequest/{id}', 'getSubMasterCategoryByIdVendor', 'getProductDataByCatnSubVendor', 'viewProductRequest', 'updateProductRequest', 'viewProductOffers']]);
 
         
     }
@@ -45,6 +46,9 @@ class ProductController extends Controller
             $productReq['quantity'] = $values['quantity'];
             $productReq['price'] = $values['price'];
             $productReq['mfd'] = $values['mfd'];
+            $productReq['discount'] = $values['offerPrice'];
+            $productReq['offerStartDate'] = date('Y-m-d', strtotime($values['startDate']));
+            $productReq['offerEndDate'] = date('Y-m-d', strtotime($values['endDate']));
             if($values['expiry'] == '1') {
                 $date = date('Y-m-d');
                 $date = date('Y-m-d', strtotime("+12 months $date"));
@@ -79,6 +83,9 @@ class ProductController extends Controller
         $productReq['quantity'] = $values['quantity'];
         $productReq['price'] = $values['price'];
         $productReq['mfd'] = $values['mfd'];
+        $productReq['discount'] = $values['offerPrice'];
+        $productReq['offerStartDate'] = date('Y-m-d', strtotime($values['startDate']));
+        $productReq['offerEndDate'] = date('Y-m-d', strtotime($values['endDate']));
         if($values['expiry'] == '1') {
             $date = date('Y-m-d');
             $date = date('Y-m-d', strtotime("+12 months $date"));
@@ -107,7 +114,7 @@ class ProductController extends Controller
     }
 
     public function viewProductRequest() {
-        $requests = ProductInventory::where('productInventory.createdBy', Auth::user()->id)->leftjoin('masterproducts', 'masterproducts.id', '=', 'productinventory.productId')->leftjoin('categories', 'masterproducts.catId','=','categories.id')->leftjoin('subcategories', 'masterproducts.subCatId','=','subcategories.id')->select('masterproducts.productName', 'productinventory.brandName', 'productinventory.price', 'productinventory.status', 'productinventory.quantity','productinventory.id', 'categories.categoryName', 'subcategories.subCategoryName','productinventory.expiry')->get();
+        $requests = ProductInventory::where('productInventory.createdBy', Auth::user()->id)->leftjoin('masterproducts', 'masterproducts.id', '=', 'productinventory.productId')->leftjoin('categories', 'masterproducts.catId','=','categories.id')->leftjoin('subcategories', 'masterproducts.subCatId','=','subcategories.id')->select('masterproducts.productName', 'productinventory.brandName', 'productinventory.price', 'productinventory.status', 'productinventory.quantity','productinventory.id', 'categories.categoryName', 'subcategories.subCategoryName','productinventory.expiry', 'productinventory.discount', 'productinventory.offerStartDate', 'productinventory.offerEndDate')->get();
         return view('vendor.products.viewProductRequest', compact('requests'));
     }
 
@@ -134,4 +141,9 @@ class ProductController extends Controller
         else
             return "failed";
     }
+
+    // public function viewProductOffers() {
+    //     $offers = ProductInventoryOffers::leftjoin('masterproducts', 'masterproducts.id', 'productinventoryoffers.productId')->leftjoin('categories', 'categories.id', '=', 'masterproducts.catId')->leftjoin('subcategories', 'subcategories.id', '=', 'masterproducts.catId')->select('masterproducts.productName', 'masterproducts.brandName', 'categories.categoryName', 'subcategories.subCategoryName', 'productinventoryoffers.offer', 'productinventoryoffers.startDate', 'productinventoryoffers.endDate','productinventory.price')->get();
+    //     return view("vendor.products.viewOffers", compact('offers'));
+    // }
 }

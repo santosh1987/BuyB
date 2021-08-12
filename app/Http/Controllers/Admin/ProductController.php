@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Category;
 use App\Models\SubCategories;
 use App\Models\MasterProducts;
+use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\DBFunctions\DBFunctionsController;
 use App\Http\Controllers\Controller;
@@ -124,6 +125,65 @@ class ProductController extends Controller
             return "failed";
     }
 
+    public function addImages(Request $request) {
+        $products = MasterProducts::where('id', $request['id'])->get();
+        $catId = $products[0]['catId'];
+        $subCatId = $products[0]['subCatId'];
+        $path1 = $catId."/".$subCatId;
+        $productImage = array();
+        $len = 0;
+        $cnt = 0;
+        // if($request->hasfile('files'))
+        //  {
+            //  print_r($request->file('flies'));
+            //  die();
+            // foreach($request->file('flies') as $file)
+            // {
+            //     $fileName =$file->getClientOriginalName();
+            //     $path = $file->storeAs(
+            //         $path1,$fileName
+            //     );
+            //     $productImage['id'] = $request['id'];
+            //     $productImage['imagePath'] = $path;
+            //     $db_functions_ctrl = new DBFunctionsController();
+            //     $table = "App\models\ProductImage";
+            //     $val = $db_functions_ctrl->insert($table, $productData);
+            //     if($val > 0) {
+            //         $cnt++;
+            //     }
+            //     $len++;
+            // }
+            
+        //  }
+        //  if($len == $cnt)
+        //     return "success";
+        // return "failed";
+        if($request->hasfile('files'))
+         {
+            foreach($request->file('files') as $key => $file)
+            {
+                $path = $file->storeAs($catId."/".$subCatId, $file->getClientOriginalName());
+                // $name = $file->getClientOriginalName();
+ 
+                $insert[$key]['productId'] = $request['id'];
+                $insert[$key]['imagePath'] = $path;
+                $insert[$key]['createdBy'] = Auth::user()->id;
+ 
+            }
+         }
+ 
+        $val = ProductImage::insert($insert);
+        if($val > 0) {
+            return "success";
+        }
+        return "failed";
+    }
+    
+    public function getImagesById(Request $request) {
+        $values = $request->all();
+        $productImages = ProductImage::where('productId', $values['id'])->get();
+        return $productImages->toJSON();
+    }
 
     /* 
             Saving product in master table 
